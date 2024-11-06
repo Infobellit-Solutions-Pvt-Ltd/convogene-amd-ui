@@ -47,7 +47,11 @@ code {
 }
 
 .chat-history-card:hover {
-  background-color: #C7E1FE8A;
+  background-color: #c7e1fe8a;
+}
+
+.chat-history-card.active {
+  background-color: #c7e1fe;
 }
 
 .random-queries-container {
@@ -62,7 +66,6 @@ code {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
-
 
 @media (max-width: 768px) {
   .random-queries-container {

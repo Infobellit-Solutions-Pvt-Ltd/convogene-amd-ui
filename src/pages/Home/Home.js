@@ -128,6 +128,7 @@ const Home = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isNewChat, setIsNewChat] = useState(true);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [selectedChatHistory, setSelectedChatHistory] = useState("");
 
   const today = new Date();
 
@@ -627,11 +628,14 @@ const Home = () => {
                     <p
                       onClick={() => {
                         setIsNewChat(false);
+                        setSelectedChatHistory(file);
                         get_file({ target: { value: file } });
                       }}
-                      className="chat-history-card"
+                      className={`chat-history-card ${
+                        selectedChatHistory === file ? "active" : ""
+                      }`}
                     >
-                        {file.charAt(0).toUpperCase() + file.slice(1)}
+                      {file.charAt(0).toUpperCase() + file.slice(1)}
                     </p>
                   ))}
               </Collapse>
