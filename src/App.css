@@ -107,3 +107,97 @@ main{
 p,h1,h2,h3,h4,h5,h6{
   margin:0
 }
+.custom-typography {
+  color: #202224;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: left;
+  padding: 8px 0px;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+.custom-typography2 {
+  font-size: 24px;
+  color: #555555;
+  font-weight: bold;
+  margin: 0px;
+}
+.custom-div {
+  box-shadow: 3.79px 3.79px 34.1px 0px #0000000D;
+  background: #FFFFFFA8;
+  width: 100%;
+  height: auto;
+  top: 210px;
+  left: 374px;
+  gap: 0px;
+  opacity: 0px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  
+}
+.custom-ChartText {
+  color: #202224;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.78px;
+  text-align: left;
+}
+.custom-DotnetText {
+ font-size: 24px;
+font-weight: bold;
+color: #202224;
+
+}
+.custom-paper {
+  width: 100%;
+  height: auto;
+  top: 516px;
+  left: 374px;
+  gap: 0px;
+  opacity: 0px;
+}
+.custom-tableHead {
+  width: 100%;
+  height: 50px;
+  top: 516px;
+  left: 374px;
+  gap: 0px;
+  opacity: 0px;
+  box-shadow: 3.79px 3.79px 34.1px 0px #0000000D;
+  background: #FFFFFFA8;
+}
+.css-y8ay40-MuiTableCell-root {
+  font-family: Inter !important; 
+  font-size: 15px !important;
+  font-weight: bold !important;
+  line-height: 1.25 !important;
+ color: #202224 ;
+
+}
+.css-1b5101w-MuiTableCell-root {
+  
+  height: 15px;
+  top: 585px;
+  left: 398px;
+  gap: 0px;
+  opacity: 0px;
+  color: #40444D !important;
+  font-family: Inter !important;
+font-size: 12px !important;
+font-weight: 400 !important;
+line-height: 1.25 !important;
+text-align: left;
+
+
+}
+.modal-text {
+  font-family: Inter !important;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
+  text-align: left; 
+  margin-top: 3px;
+  margin-bottom: 3px;
+}

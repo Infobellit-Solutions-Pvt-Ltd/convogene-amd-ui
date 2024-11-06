@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 // Register the necessary Chart.js components
@@ -96,37 +94,40 @@ const DoughnutChart = ({ percentages, labels }) => {
   }, [hoveredSegment, activeSegment]);
 
   return (
-    <Card
+    <div
       style={{
-        height: "28start0px",
+        height: "280px",
         width: "300px",
         margin: "10px",
+        position: "relative",
         borderRadius: "10px",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        padding: "16px",
       }}
     >
-      <CardContent>
-        <div style={{ position: "relative", height: "250px", width: "100%" }}>
-          <Doughnut
-            ref={chartRef}
-            data={data}
-            options={options}
-            style={{ height: "100%", width: "100%" }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              textAlign: "center",
-            }}
-          >
-            {centerText}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      <Doughnut
+        ref={chartRef}
+        data={data}
+        options={options}
+        style={{ height: "100%", width: "100%" }}
+      />
+      <div
+      className="custom-DotnetText"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          textAlign: "center",
+        }}
+      >
+        <p>
+
+        </p> 
+
+        {centerText}             
+      </div>
+    </div>
   );
 };
 

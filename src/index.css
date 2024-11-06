@@ -1,19 +1,74 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- 
 }
-#root{
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#root {
   height: 100vh !important;
 }
-#root .MuiBox-root{
+#root .MuiBox-root {
   height: 100%;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.random-query-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: "rgba(255, 255, 255, 1)" !important;
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 10px 10px;
+  text-align: center;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-history-card {
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.chat-history-card:hover {
+  background-color: #C7E1FE8A;
+}
+
+.random-queries-container {
+  width: 60%;
+  display: flex;
+  height: auto;
+  flex-direction: row;
+}
+
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+
+@media (max-width: 768px) {
+  .random-queries-container {
+    width: 100%;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+  }
 }

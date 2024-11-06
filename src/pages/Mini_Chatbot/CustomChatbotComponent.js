@@ -4,7 +4,6 @@ import axios from "axios";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw"; // Import rehype-raw
-import minibot from "../../assets/Images/minibot.png";
 import infobellImg from "../../assets/Images/infobellLogo.png"; // Import infobell image
 import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 import { Box, IconButton } from "@mui/material";
@@ -17,6 +16,7 @@ import Typography from "@mui/material/Typography"; // Import MUI Typography
 import Card from "@mui/material/Card"; // Import MUI Card
 import CardContent from "@mui/material/CardContent"; // Import MUI CardContent
 import "./styles.css"; // Ensure you import the CSS file
+import micActiveLogo from "../../assets/Images/stop-button.png"; // Import micActive image
 const SPEECH_KEY = "f4a8f5be7801494fa47bc87d6d8ca31d";
 const SPEECH_REGION = "eastus";
 
@@ -246,7 +246,7 @@ const CustomChatbotComponent = () => {
   };
 
   const stopListening = () => {
-      setTranscription("");
+    setTranscription("");
     if (recognizer) {
       recognizer.stopContinuousRecognitionAsync(
         () => {
@@ -302,12 +302,19 @@ const CustomChatbotComponent = () => {
     <div>
       {!isChatOpen && (
         <button className="chatbot-button" onClick={handleToggleChat}>
-          <img src={minibot} alt="Chat" />
+          <img
+            src="./chat.png"
+            alt="Chat"
+          />
         </button>
       )}
       {isChatOpen && (
         <div className="chatbot-container" ref={chatContainerRef}>
-          <div className="chatbot-header">
+          <div
+            style={{
+              paddingBottom: "10px",
+            }}
+          >
             <img
               src={infobellImg}
               alt="Info Bell"
@@ -332,7 +339,12 @@ const CustomChatbotComponent = () => {
                 {message.sender === "bot" && (
                   <>
                     <FaRobot className="message-icon bot-icon" />
-                    <div className="message-content">
+                    <div
+                      className="message-content"
+                      style={{
+                        borderTopLeftRadius: "0px",
+                      }}
+                    >
                       <Markdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -382,12 +394,14 @@ const CustomChatbotComponent = () => {
                                   onClick={() => setInputValue(question)}
                                   className="related-question-card"
                                   style={{
-                                    border: "1px solid #ccc",
+                                    boxShadow: "none",
                                     marginBottom: "5px",
-                                    fontSize: "8pt", // Adjust font size
-                                    width: "90%", // Adjust width
-                                    cursor: "pointer", // Change cursor to pointer
-                                    transition: "background-color 0.3s", // Smooth transition for background color
+                                    width: "100%",
+                                    minHeight: "40px",
+                                    fontSize: "12px",
+                                    padding: "5px 0px",
+                                    backgroundColor: "rgba(255, 255, 255, 0.4)",
+                                    borderRadius: "10px",
                                   }}
                                 >
                                   <CardContent
@@ -420,10 +434,17 @@ const CustomChatbotComponent = () => {
                 )}
                 {message.sender === "user" && (
                   <>
-                    <FaUser className="message-icon user-icon" />
-                    <div className="message-content">
+                    <div
+                      className="message-content"
+                      style={{
+                        marginRight: "10px",
+                        backgroundColor: "#C7E1FE8A",
+                        borderTopRightRadius: "0px",
+                      }}
+                    >
                       <div className="message-text">{message.answer}</div>
                     </div>
+                    <FaUser className="message-icon user-icon" />
                   </>
                 )}
               </div>
@@ -435,26 +456,43 @@ const CustomChatbotComponent = () => {
               bottom: 0,
               width: "400px",
               backgroundColor: "#ffff",
-              padding: "10px",
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
               height: "70px", // Adjust height as needed
+              borderTop: "1px solid #B7D3FD",
             }}
           >
             <div
               style={{
-                marginLeft: "5%",
-                marginRight: "5%",
-                width: "90%",
-                border: "2px solid #ccc",
-                borderRadius: 50,
+                width: "100%",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                position: "relative", // Add relative positioning
+                position: "relative",
+                backgroundColor: "rgba(255, 255, 255, 1)",
               }}
             >
+              <Button
+                style={{
+                  color: isListening ? "red" : "#5391F6",
+                  zIndex: 1,
+                  aspectRatio: "1",
+                  borderRadius: "50px",
+                  height: "50px",
+                }}
+                onClick={isListening ? stopListening : startListening}
+              >
+                {isListening ? (
+                  <img
+                    src={micActiveLogo}
+                    alt="Mic Active"
+                    style={{ height: "24px" }}
+                  />
+                ) : (
+                  <KeyboardVoiceIcon className="micIcon" />
+                )}
+              </Button>
               <input
                 className="searchInput"
                 placeholder="Enter the prompt"
@@ -466,28 +504,19 @@ const CustomChatbotComponent = () => {
                 style={{
                   fontSize: "0.8rem",
                   flex: 1,
-                  marginLeft: "25px",
-                  padding: "10px 30px", // Add padding to make space for icons
+                  padding: "5px",
                   border: "none",
                   outline: "none",
                   borderRadius: "50px",
                 }}
               />
+
               <Button
                 style={{
-                  color: isListening ? "red" : "black",
-                  position: "absolute",
-                  left: "none", // Position the mic icon inside the input field
-                }}
-                onClick={isListening ? stopListening : startListening}
-              >
-                <KeyboardVoiceIcon className="micIcon" />
-              </Button>
-              <Button
-                style={{
-                  color: "black",
-                  position: "absolute",
-                  right: "0px", // Position the send icon inside the input field
+                  color: "#5391F6",
+                  aspectRatio: "1",
+                  borderRadius: "50px",
+                  height: "50px",
                 }}
                 onClick={handleSendMessage}
               >

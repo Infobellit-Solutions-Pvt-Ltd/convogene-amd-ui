@@ -6,7 +6,8 @@ import CustomChatbotComponent from "../Mini_Chatbot/CustomChatbotComponent";
 import AddIcon from "@mui/icons-material/Add";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-
+import micActiveLogo from "../../assets/Images/stop-button.png";
+import remarkGfm from "remark-gfm";
 import Shimmer from "./Shimmer"; // Import the Shimmer component
 import {
   IconButton,
@@ -86,7 +87,7 @@ const Home = () => {
 
   // const { profile } = location.state || {};
   const [logout, setLogout] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const theme = useTheme();
   let [answerFlag1, setAnswerFlag1] = useState(true);
   let [answerFlag2, setAnswerFlag2] = useState(true);
@@ -116,6 +117,7 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState("");
 
   const [isCollapse5, setIsCollapse5] = useState(false);
+  const [loadingChatHistory, setLoadingChatHistory] = useState(false);
   const [isCustom, setIsCustom] = useState(false);
   const [index, setIndex] = useState(false);
   const [config, setConfig] = useState(false);
@@ -124,20 +126,22 @@ const Home = () => {
   const [files, setFiles] = useState();
   const [selectedIndex, setSelectedIndex] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isNewChat, setIsNewChat] = useState(true);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   const today = new Date();
 
   const date_for_file = today.toISOString().split("T")[0];
 
   const handleCollapse5 = async () => {
+    setLoadingChatHistory(true);
     const response = await axios.get(
-      // "http://192.168.0.182:8088/list_files"
       "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/list_files"
     );
-    // const response = await axios.get("http://127.0.0.1:5000/list_files");
     console.log(response.data);
     setFiles(response.data);
-    setIsCollapse5(!isCollapse5);
+    setIsCollapse5(true);
+    setLoadingChatHistory(false);
   };
 
   const transformData = (rawData) => {
@@ -152,13 +156,11 @@ const Home = () => {
 
   const get_file = async (event) => {
     const selectedFile = event.target.value;
-    setSelectedIndex(selectedFile); // Update the selected index
+    setSelectedIndex(selectedFile);
     setMessages([]);
     console.log("get_file_single");
     console.log("this is file name" + selectedFile);
-    // const response = await axios.post("http://127.0.0.1:5000/one_file", {
     const response = await axios.post(
-      // "http://192.168.0.182:8088/one_file",
       "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/one_file",
       {
         file: selectedFile,
@@ -172,116 +174,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (messages) {
-      console.log(messages);
-    }
-  }, [messages]);
-
-  // useEffect(() => {
-  //   const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
-  //   const speechConfig = sdk.SpeechConfig.fromSubscription(
-  //     "f4a8f5be7801494fa47bc87d6d8ca31d", // Replace with your key
-  //     "eastus"
-  //   ); // Replace with your actual key and region
-
-  //   // Create the recognizer
-  //   const speechRecognizer = new sdk.SpeechRecognizer(
-  //     speechConfig,
-  //     audioConfig
-  //   );
-  //   setRecognizer(speechRecognizer);
-
-  //   return () => {
-  //     if (speechRecognizer) {
-  //       speechRecognizer.close();
-  //     }
-  //   };
-  // }, []);
-
-  // const correctSpecialWords = (text) => {
-  //   return text
-  //     .split(" ")
-  //     .map((word) => {
-  //       switch (word.toLowerCase()) {
-  //         case "amd epic":
-  //           return "AMD EPYC";
-  //         case "amd risen":
-  //           return "AMD RYZEN";
-  //         case "processes":
-  //           return "processors";
-  //         case "epic":
-  //           return "EPYC";
-  //         case "risen":
-  //         case "horizon":
-  //         case "rise and":
-  //           return "RYZEN";
-  //         case "amd":
-  //         case "md":
-  //         case "mda":
-  //           return "AMD";
-  //         default:
-  //           return word;
-  //       }
-  //     })
-  //     .join(" ");
-  // };
-
-  // const startListening = async () => {
-  //   if (recognizer) {
-  //     setIsListening(true);
-
-  //     recognizer.startContinuousRecognitionAsync(
-  //       () => {
-  //         console.log("Continuous recognition started");
-  //       },
-  //       (error) => {
-  //         console.error("Error starting continuous recognition:", error);
-  //         setIsListening(false);
-  //       }
-  //     );
-
-  //     let previousWords = [];
-  //     let currentSearchValue = "";
-
-  //     recognizer.recognizing = (s, e) => {
-  //       if (e.result.reason === sdk.ResultReason.RecognizingSpeech) {
-  //         const currentWords = e.result.text.split(" ");
-  //         const newWords = currentWords.filter(
-  //           (word) => !previousWords.includes(word)
-  //         );
-
-  //         if (newWords.length > 0) {
-  //           const interimText = correctSpecialWords(newWords.join(" "));
-  //           currentSearchValue = (
-  //             currentSearchValue +
-  //             " " +
-  //             interimText
-  //           ).trim();
-
-  //           console.log("New words:", interimText);
-  //           console.log("Updated Search Value:", currentSearchValue);
-
-  //           setSearchValue(currentSearchValue);
-  //           previousWords = currentWords;
-  //         }
-  //       }
-  //     };
-  //   }
-  // };
-
-  // const stopListening = () => {
-  //   if (recognizer) {
-  //     recognizer.stopContinuousRecognitionAsync(
-  //       () => {
-  //         console.log("Continuous recognition stopped");
-  //         setIsListening(false);
-  //       },
-  //       (error) => {
-  //         console.error("Error stopping continuous recognition:", error);
-  //       }
-  //     );
-  //   }
-  // };
+    axios
+      .get(
+        "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/home"
+      )
+      .then((response) => {
+        console.log("Backend server woke up:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error waking up backend server:", error);
+      });
+  }, []);
 
   useEffect(() => {
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -428,16 +331,16 @@ const Home = () => {
     setOpen(true);
   };
 
-  const drawerWidth = 240;
+  const drawerWidth = 343;
 
   const handleInputChange = (event) => {
     setSearchValue(event.target.value);
   };
 
-  const getAnswer = async () => {
-    const query = searchValue.trim();
+  const getAnswer = async (temp) => {
+    setIsNewChat(false);
+    const query = temp || searchValue.trim();
     if (!query) {
-      // If searchValue is empty, do not proceed
       return;
     }
 
@@ -458,15 +361,13 @@ const Home = () => {
     if (query) {
       try {
         const response = await fetch(
-          // "https://d5a0-45-112-53-218.ngrok-free.app/rag_qa_api_stream",
           "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/rag_qa_api_stream",
-          // "http://192.168.0.182:8088/rag_qa_api_stream",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ text: searchValue }),
+            body: JSON.stringify({ text: query }),
           }
         );
 
@@ -479,18 +380,16 @@ const Home = () => {
           if (done) break;
           const chunk = decoder.decode(value);
           responseText += chunk;
+          const currentResponseText = responseText;
           setMessages((prevMessages) => {
             const newMessages = [...prevMessages];
-            newMessages[newMessages.length - 1].answer += chunk;
+            newMessages[newMessages.length - 1].answer = currentResponseText;
             newMessages[newMessages.length - 1].isProcessing = false;
             return newMessages;
           });
         }
-      
-        // setMessages((prevMessages) => [...prevMessages, related_questions_message]);
+
         const relatedQuestionsResponse = await fetch(
-          // "https://d5a0-45-112-53-218.ngrok-free.app/related_questions",
-          // "http://192.168.0.182:8088/related_questions",
           "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/related_questions",
           {
             method: "POST",
@@ -546,7 +445,22 @@ const Home = () => {
     navigate("/monitor");
   };
 
-  ////////////////////////////////////////////////////////////////////////////////////////
+  function handleResize() {
+    if (window.innerWidth < 800) {
+      setOpen(false);
+      setIsLargeScreen(false);
+    } else {
+      setOpen(true);
+      setIsLargeScreen(true);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const messagesEndRef = useRef(null);
 
@@ -555,527 +469,576 @@ const Home = () => {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
   };
-  console.log(messages);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages, answers]);
 
-
-return (
-  <>
-    <div
-      className="scroll-Container"
-      style={{
-        minHeight: "100vh",
-        width: "100vw",
-        backgroundColor: "white",
-        padding: 10,
-        overflow: "auto", // Hide the scrollbar
-      }}
-    >
+  return (
+    <>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          height: "10%",
-        }}
-      >
-        <div style={{ width: "2%" }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          {/* sidebar */}
-
-          <Drawer
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-          >
-            <div>
-              <DrawerHeader
-                style={{
-                  minHeight: "60px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Tooltip title="Create new chat">
-                  <img
-                    src={newchat}
-                    alt="Create new chat"
-                    style={{
-                      cursor: "pointer",
-                      height: "24px",
-                      width: "24px",
-                    }}
-                    onClick={() => {
-                      window.location.reload();
-                    }}
-                  />
-                </Tooltip>
-                <IconButton
-                  onClick={() => {
-                    setOpen(false, () => {});
-                  }}
-                >
-                  {theme.direction === "ltr" ? (
-                    <ChevronLeftIcon />
-                  ) : (
-                    <ChevronRightIcon />
-                  )}
-                </IconButton>
-              </DrawerHeader>
-              <Divider />
-              <List>
-                <ListItem
-                  disablePadding
-                  onClick={() => handleCollapse5}
-                  sx={{ marginBottom: "8px" }}
-                >
-                  <ListItemButton
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "#CDF5FD",
-                      },
-                      backgroundColor:
-                        selectedItem === "history" ? "#CDF5FD" : "transparent",
-                    }}
-                    onClick={() => {
-                      handleCollapse5();
-                      setSelectedItem("history");
-                    }}
-                  >
-                    <ListItemIcon
-                      style={{ minWidth: "20px", marginRight: "8px" }}
-                    >
-                      <WidgetsOutlinedIcon
-                        sx={{ fontSize: 20, color: "#00A9FF" }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="History" />
-                    {isCollapse5 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                  </ListItemButton>
-                </ListItem>
-                <Collapse in={isCollapse5} timeout="auto" unmountOnExit>
-                  <Box sx={{ pl: 4 }}>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="index"
-                        name="index"
-                        value={selectedIndex}
-                        onChange={get_file}
-                      >
-                        {files &&
-                          files.map((file) => (
-                            <Box
-                              key={file}
-                              sx={{
-                                "&:hover": {
-                                  backgroundColor: "#CDF5FD",
-                                },
-                                backgroundColor:
-                                  selectedIndex === file
-                                    ? "#CDF5FD"
-                                    : "transparent",
-                                marginBottom: "8px",
-                                display: "flex",
-                                alignItems: "center",
-                              }}
-                              onClick={() =>
-                                get_file({ target: { value: file } })
-                              }
-                            >
-                              <FormControlLabel
-                                value={file}
-                                control={
-                                  <Radio
-                                    size="small"
-                                    sx={{
-                                      color: "#071952",
-                                      "&.Mui-checked": {
-                                        color: "#071952",
-                                      },
-                                    }}
-                                  />
-                                }
-                                label={
-                                  <span className="radio-label">
-                                    {file.charAt(0).toUpperCase() +
-                                      file.slice(1)}
-                                  </span>
-                                }
-                                sx={{
-                                  flex: 1,
-                                  margin: 0,
-                                }}
-                              />
-                            </Box>
-                          ))}
-                      </RadioGroup>
-                    </FormControl>
-                  </Box>
-                </Collapse>
-              </List>
-
-              <List></List>
-              <List>
-                <ListItem disablePadding sx={{ marginBottom: "8px" }}>
-                  <ListItemButton
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "#CDF5FD", // Change background color on hover
-                      },
-                      backgroundColor:
-                        selectedItem === "uploadDoc"
-                          ? "#CDF5FD"
-                          : "transparent",
-                    }}
-                    onClick={() => {
-                      setMonitoring(true);
-                      monitor();
-                    }}
-                  >
-                    <ListItemIcon
-                      style={{ minWidth: "20px", marginRight: "8px" }}
-                    >
-                      <ScreenSearchDesktopIcon
-                        sx={{ fontSize: 20, color: "#00A9FF" }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Monitoring" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-            </div>
-          </Drawer>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: open ? "calc(100% - 210px)" : "98%", // Adjust width based on sidebar state
-            justifyContent: "space-between",
-            marginLeft: open ? "210px" : "0", // Shift the logo when sidebar is open
-            transition: "width 0.3s, margin-left 0.3s", // Smooth transition
-          }}
-        >
-          <img
-            alt=""
-            src={infobellImg}
-            style={{
-              height: "3rem",
-              transition: "transform 0.3s",
-              
-            }}
-          />
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          padding: "10px",
-          justifyContent: "space-around",
-          height: "calc(100% - 70px)", // Adjust height to account for the fixed prompt bar
-          overflow: "auto", // Enable scrolling for the chat section
-        }}
         className="scroll-Container"
+        style={{
+          display: "flex",
+          gap: "20px",
+          height: "100vh",
+          width: "100vw",
+          backgroundColor: "white",
+          padding: 10,
+          position: "relative",
+          backgroundImage: "url('./bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          overflowY: "hidden",
+        }}
       >
-        {isOpen ? (
+        {/* sidebar */}
+
+        {open && (
           <div
             style={{
-              width: "40%",
+              width: isLargeScreen ? "40%" : "100%",
+              maxWidth: drawerWidth,
               height: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-              flexWrap: "wrap",
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
+              backdropFilter: "blur(42px)",
+              borderRadius: "26px",
+              padding: "15px",
+              overflow: "auto",
+              position: isLargeScreen ? "relative" : "fixed",
+              top: 0,
+              left: 0,
+              zIndex: 1000,
             }}
+            className="hide-scrollbar"
           >
-            <RandomQueries onQuerySelect={(query) => setSearchValue(query)} />
-          </div>
-        ) : (
-          <>
             <div
               style={{
                 display: "flex",
-                flexDirection: "row",
-                padding: "10px",
-                height: "100%",
-                width: "50%",
+                justifyContent: "space-between",
               }}
             >
+              <img
+                src="./infobell-large.png"
+                alt="Create new chat"
+                style={{
+                  cursor: "pointer",
+                  height: "40px",
+                }}
+              />
+              <IconButton
+                onClick={() => {
+                  setOpen(false);
+                }}
+                style={{
+                  aspectRatio: "1",
+                }}
+              >
+                <img src="./burger.svg" alt="burger" />
+              </IconButton>
+            </div>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#5391F6",
+                color: "white",
+                borderRadius: "100px",
+                padding: "10px 15px",
+                fontWeight: "600",
+                textAlign: "center",
+                fontSize: "14px",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              + New Chat
+            </button>
+            <List>
+              <ListItem disablePadding sx={{ marginBottom: "8px" }}>
+                <ListItemButton
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#C7E1FE8A", // Change background color on hover
+                    },
+                    backgroundColor:
+                      selectedItem === "uploadDoc"
+                        ? "#C7E1FE8A"
+                        : "transparent",
+                    borderRadius: "10px",
+                  }}
+                  onClick={() => {
+                    setMonitoring(true);
+                    monitor();
+                  }}
+                >
+                  <ListItemIcon
+                    style={{ minWidth: "20px", marginRight: "8px" }}
+                  >
+                    <ScreenSearchDesktopIcon
+                      sx={{ fontSize: 20, color: "#00A9FF" }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary="Monitoring" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem disablePadding sx={{ marginBottom: "8px" }}>
+                <ListItemButton
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#C7E1FE8A",
+                    },
+                    backgroundColor:
+                      selectedItem === "history" ? "#C7E1FE8A" : "transparent",
+                    borderRadius: "10px",
+                  }}
+                  onClick={() => {
+                    if (isCollapse5) setIsCollapse5(false);
+                    else handleCollapse5();
+                    setSelectedItem("history");
+                  }}
+                >
+                  <ListItemIcon
+                    style={{ minWidth: "20px", marginRight: "8px" }}
+                  >
+                    <WidgetsOutlinedIcon
+                      sx={{ fontSize: 20, color: "#00A9FF" }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary="History" />
+                  {isCollapse5 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </ListItemButton>
+              </ListItem>
+              {loadingChatHistory && <p>Loading...</p>}
+              <Collapse
+                in={isCollapse5}
+                timeout="auto"
+                unmountOnExit
+                sx={{
+                  padding: "10px",
+                }}
+              >
+                {files &&
+                  files.map((file) => (
+                    <p
+                      onClick={() => {
+                        setIsNewChat(false);
+                        get_file({ target: { value: file } });
+                      }}
+                      className="chat-history-card"
+                    >
+                        {file.charAt(0).toUpperCase() + file.slice(1)}
+                    </p>
+                  ))}
+              </Collapse>
+            </List>
+          </div>
+        )}
+
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            padding: "10px",
+            justifyContent: "space-around",
+            overflow: "auto",
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backdropFilter: "blur(42px)",
+            borderRadius: "26px",
+          }}
+          className="scroll-Container"
+        >
+          {!open && (
+            <IconButton
+              style={{
+                position: "absolute",
+                top: "20px",
+                left: "20px",
+              }}
+              onClick={handleDrawerOpen}
+            >
+              <img src="./burger.svg" alt="burger" />
+            </IconButton>
+          )}
+          <p
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              fontSize: "18px",
+              fontWeight: "700",
+              lineHeight: "21.78px",
+              textAlign: "justified",
+            }}
+          >
+            AMD
+          </p>
+          {isNewChat ? (
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <div>
+                <p
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "400",
+                  }}
+                >
+                  Hey,{" "}
+                  <i>
+                    Welcome to{" "}
+                    <span
+                      style={{
+                        color: "#387FF2",
+                      }}
+                    >
+                      ConvoGene
+                    </span>{" "}
+                  </i>
+                </p>
+                <p
+                  style={{
+                    fontSize: "39px",
+                    fontWeight: "700",
+                    lineHeight: "47.2px",
+                  }}
+                >
+                  How Can I Help?
+                </p>
+              </div>
+              {/* Search bar */}
               <div
-                ref={messagesEndRef}
-                className="scroll-Container"
+                style={{
+                  width: "65%",
+                  borderRadius: 50,
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  position: "relative",
+                  backgroundColor: "rgba(255, 255, 255, 0.4)",
+                  padding: "10px",
+                }}
+              >
+                <Button
+                  style={{
+                    color: isListening ? "red" : "#5391F6",
+                    zIndex: 1,
+                    aspectRatio: "1",
+                    borderRadius: "50px",
+                  }}
+                  onClick={isListening ? stopListening : startListening}
+                >
+                  {isListening ? (
+                    <img
+                      src={micActiveLogo}
+                      alt="Mic Active"
+                      style={{ height: "24px" }}
+                    />
+                  ) : (
+                    <KeyboardVoiceIcon className="micIcon" />
+                  )}
+                </Button>
+                <input
+                  ref={queryRef}
+                  className="searchInput"
+                  placeholder="Enter the prompt"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") getAnswer();
+                  }}
+                  style={{
+                    flex: 1,
+                    border: "none",
+                    outline: "none",
+                    backgroundColor: "transparent",
+                    padding: "10px 5px",
+                  }}
+                />
+                <Button
+                  style={{
+                    color: "#5391F6",
+                    aspectRatio: "1",
+                    borderRadius: "50px",
+                  }}
+                  onClick={() => {
+                    getAnswer();
+                  }}
+                >
+                  <SendIcon className="sendIcon" />
+                </Button>
+              </div>
+              <RandomQueries onQuerySelect={(query) => getAnswer(query)} />
+            </div>
+          ) : (
+            <>
+              <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
+                  flexDirection: "row",
+                  padding: "10px",
                   height: "100%",
-                  overflow: "auto",
-                  paddingBottom: "70px", // Add padding to avoid overlapping with the prompt bar
+                  width: "70%",
                 }}
               >
                 <div
+                  ref={messagesEndRef}
+                  className="scroll-Container hide-scrollbar"
                   style={{
                     display: "flex",
-                    alignItems: "center",
                     flexDirection: "column",
+                    width: "100%",
+                    height: "100%",
+                    overflow: "auto",
+                    paddingBottom: "70px", // Add padding to avoid overlapping with the prompt bar
+                    overflowY: "scroll",
+                    overflowX: "hidden",
                   }}
                 >
-                  {/* <h4>Which response do you prefer?</h4>
-                    <p style={{ color: "lightgray" }}>
-                      Your choice will make ConvoGene better{" "}
-                    </p> */}
-                </div>
-                {messages?.map((message, index) => (
-                  <div
-                    key={index}
-                    className="scroll-container"
-                    style={{
-                      display: "flex",
-                      justifyContent:
-                        message?.sender === "user" ? "flex-end" : "flex-start",
-                      flexDirection: message?.sender === "user" ? "" : "column",
-                    }}
-                  >
-                    {message?.sender === "user" && (
-                      <>
+                  {messages?.map((message, index) => (
+                    <div
+                      key={index}
+                      className="scroll-container"
+                      style={{
+                        display: "flex",
+                        justifyContent:
+                          message?.sender === "user"
+                            ? "flex-end"
+                            : "flex-start",
+                        flexDirection:
+                          message?.sender === "user" ? "" : "column",
+                      }}
+                    >
+                      {message?.sender === "user" && (
                         <p
                           style={{
-                            padding: "0.25rem 0.5rem",
+                            padding: "10px 24px",
                             borderRadius: "8px",
                             backgroundColor:
                               message?.sender === "user"
-                                ? "#cccccc7d"
+                                ? "#C7E1FE8A"
                                 : "unset",
                             width: "fit-content",
+                            borderRadius: "20px",
                           }}
+                          className="wrap-text"
                         >
                           {message.answer}
                         </p>
-                      </>
-                    )}
-                    {message?.sender === "bot" && (
-                      <>
+                      )}
+                      {message?.sender === "bot" && (
                         <div
                           style={{
                             display: "flex",
                             textAlign: "left",
                             justifyContent: "flex-start",
-                            flexDirection: "column",
-                            overflowWrap: "break-word",
+                            justifyItems: "start",
+                            gap: "16px",
+                            padding: "30px 0",
                           }}
+                          className="wrap-text"
                         >
+                          {message?.answer && (
+                            <div>
+                              <img alt="" src="./star.svg" />
+                            </div>
+                          )}
                           {message?.isProcessing && <Shimmer />}
-                          {message?.answer &&
-                            [0, 1].indexOf(message?.display) > -1 && (
-                              <div
-                                onClick={() => {
-                                  setMessages((prev) => {
-                                    let values = [...prev];
-                                    values[index]["display"] = 1;
-                                    return values;
-                                  });
-                                }}
-                                className={styles.robotmessageContainer}
-                                style={{
-                                  width:
-                                    message.display !== 0 ? "100%" : widthM,
+                          {message?.answer && (
+                            <div
+                              onClick={() => {
+                                setMessages((prev) => {
+                                  let values = [...prev];
+                                  values[index]["display"] = 1;
+                                  return values;
+                                });
+                              }}
+                              style={{
+                                width: message.display !== 0 ? "100%" : widthM,
+                              }}
+                            >
+                              <Markdown
+                                components={{
+                                  a: ({ node, ...props }) => (
+                                    <a
+                                      {...props}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    />
+                                  ),
                                 }}
                               >
-                                <span
-                                  style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                  }}
-                                >
-                                  <img
-                                    alt=""
-                                    src={openaiimg}
-                                    style={{ width: "50px", height: "17px" }}
-                                  />
-                                  <p style={{ fontSize: "12px" }}>-GPT4</p>{" "}
-                                </span>
-                                <Markdown
-                                  components={{
-                                    a: ({ node, ...props }) => (
-                                      <a
-                                        {...props}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      />
-                                    ),
-                                  }}
-                                >
-                                  {message.answer}
-                                </Markdown>
-                              </div>
-                            )}
+                                {message.answer}
+                              </Markdown>
+                            </div>
+                          )}
                         </div>
-                      </>
-                    )}
-                    {message?.sender === "bot_rq" && (
-                      <>
-                        <div
-                          style={{
-                            display: "flex",
-                            paddingBottom: "50px",
-                            textAlign: "left",
-                            justifyContent: "flex-start",
-                            flexDirection: "column",
-                          }}
-                        >
-                          {message.answer &&
-                            JSON.parse(message.answer).length > 0 && (
-                              <div className="related-questions">
-                                <Typography variant="h6">
-                                  Related Questions:
-                                </Typography>
-                                {JSON.parse(message.answer).map(
-                                  (question, qIndex) => (
-                                    <Card
-                                      key={qIndex}
-                                      onClick={() =>
-                                        handleRelatedQuestionClick(question)
-                                      }
-                                      className="related-question-card"
-                                      style={{
-                                        border: "1px solid #ccc",
-                                        outline: "1px solid #ccc",
-                                        marginBottom: "5px",
-                                        width: "100%", // Adjust width
-                                        minHeight: "40px", // Adjust height
-                                        transition: "background-color 0.3s", // Smooth transition for background color
-                                        fontSize: "12pt", // Adjust font size
-                                      }} // Add border and margin
-                                    >
-                                      <CardContent
+                      )}
+                      {message?.sender === "bot_rq" && (
+                        <>
+                          <div
+                            style={{
+                              display: "flex",
+                              paddingBottom: "50px",
+                              textAlign: "left",
+                              justifyContent: "flex-start",
+                              flexDirection: "column",
+                            }}
+                          >
+                            {message.answer &&
+                              JSON.parse(message.answer).length > 0 && (
+                                <div className="related-questions">
+                                  <Typography variant="h6">
+                                    Related Questions:
+                                  </Typography>
+                                  {JSON.parse(message.answer).map(
+                                    (question, qIndex) => (
+                                      <Card
+                                        key={qIndex}
+                                        onClick={() =>
+                                          handleRelatedQuestionClick(question)
+                                        }
+                                        className="related-question-card"
                                         style={{
-                                          paddingTop: "2px",
-                                          paddingBottom: "2px",
+                                          boxShadow: "none",
+                                          marginBottom: "5px",
+                                          width: "100%",
+                                          minHeight: "40px",
+                                          fontSize: "12px",
+                                          padding: "10px 5px",
+                                          backgroundColor:
+                                            "rgba(255, 255, 255, 0.4)",
+                                          borderRadius: "20px",
                                         }}
                                       >
-                                        <Box
-                                          display="flex"
-                                          justifyContent="space-between"
-                                          alignItems="center"
+                                        <CardContent
+                                          style={{
+                                            paddingTop: "2px",
+                                            paddingBottom: "2px",
+                                          }}
                                         >
-                                          <Typography variant="body1">
-                                            {question}
-                                          </Typography>
-                                          <IconButton>
-                                            <AddIcon />
-                                          </IconButton>
-                                        </Box>
-                                      </CardContent>
-                                    </Card>
-                                  )
-                                )}
-                              </div>
-                            )}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
+                                          <Box
+                                            display="flex"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                          >
+                                            <Typography variant="body1">
+                                              {question}
+                                            </Typography>
+                                            <IconButton>
+                                              <AddIcon />
+                                            </IconButton>
+                                          </Box>
+                                        </CardContent>
+                                      </Card>
+                                    )
+                                  )}
+                                </div>
+                              )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+          {/* Search bar */}
+          {!isNewChat && (
+            <div
+              style={{
+                position: "fixed",
+                bottom: 0,
+                width: "100%",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                height: "70px",
+              }}
+            >
+              <div
+                style={{
+                  width: "70%",
+                  borderRadius: 50,
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  position: "relative",
+                  backgroundColor: "rgba(255, 255, 255, 1)",
+                  padding: "10px",
+                }}
+              >
+                <Button
+                  style={{
+                    color: isListening ? "red" : "#5391F6",
+                    zIndex: 1,
+                    aspectRatio: "1",
+                    borderRadius: "50px",
+                    height: "36px",
+                  }}
+                  onClick={isListening ? stopListening : startListening}
+                >
+                  {isListening ? (
+                    <img
+                      src={micActiveLogo}
+                      alt="Mic Active"
+                      style={{ height: "24px" }}
+                    />
+                  ) : (
+                    <KeyboardVoiceIcon className="micIcon" />
+                  )}
+                </Button>
+                <input
+                  ref={queryRef}
+                  className="searchInput"
+                  placeholder="Enter the prompt"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") getAnswer();
+                  }}
+                  style={{
+                    flex: 1,
+                    border: "none",
+                    outline: "none",
+                    backgroundColor: "transparent",
+                    padding: "10px 5px",
+                  }}
+                />
+                <Button
+                  style={{
+                    color: "#5391F6",
+                    aspectRatio: "1",
+                    borderRadius: "50px",
+                    height: "36px",
+                  }}
+                  onClick={() => {
+                    getAnswer();
+                  }}
+                >
+                  <SendIcon className="sendIcon" />
+                </Button>
               </div>
             </div>
-          </>
-        )}
-      </div>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          width: "100%",
-          backgroundColor: "#ffff",
-          padding: "10px",
-          // boxShadow: "0 -2px 5px rgba(0,0,0,0.1)",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          height: "70px", // Adjust height as needed
-        }}
-      >
-        <div
-          style={{
-            width: "50%",
-            border: "2px solid #ccc",
-            borderRadius: 50,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            position: "relative", // Add relative positioning
-          }}
-        >
-          <Button
-            style={{
-              color: isListening ? "red" : "black",
-              position: "absolute",
-              left: "0px", // Position the mic icon inside the input field
-              zIndex: 1, // Ensure the button is above the input field
-            }}
-            onClick={isListening ? stopListening : startListening}
-          >
-            <KeyboardVoiceIcon className="micIcon" />
-          </Button>
-          <input
-            ref={queryRef}
-            className="searchInput"
-            placeholder="Enter the prompt"
-            value={searchValue}
-            onChange={handleInputChange}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") getAnswer();
-            }}
-            style={{
-              flex: 1,
-              padding: "10px 40px", // Add padding to make space for icons
-              paddingLeft: "60px", // Add padding to the left to make space for the mic icon
-              border: "none",
-              outline: "none",
-              borderRadius: "50px",
-            }}
-          />
-          <Button
-            style={{
-              color: "black",
-              position: "absolute",
-              right: "0px", // Position the send icon inside the input field
-              zIndex: 1, // Ensure the button is above the input field
-            }}
-            onClick={getAnswer}
-          >
-            <SendIcon className="sendIcon" />
-          </Button>
+          )}
         </div>
-
-        <CustomChatbotComponent />
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 };
 
 export default Home;

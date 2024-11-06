@@ -3,46 +3,34 @@ import { useRoutes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 // import { AuthProvider } from '../src/pages/Login/AuthContext'
 import Monitor from "./pages/Monitor/Monitor";
-
+import CustomChatbotComponent from "./pages/Mini_Chatbot/CustomChatbotComponent";
 
 // import TranscriptionApp from "./pages/Transcription/TranscriptionApp";
 
-
 const Router = () => {
-
-    const routes = useRoutes([
-      {
-        path: "",
-        // element:<SideBar/>,
-        children: [
-         
-         
-
-         
-          {
-            path: "/",
-            element: <Home />,
-          },
-          {
-            path: "monitor",
-            element: <Monitor />,
-          },
-         
-          
-         
-         
-          
-        ],
-      },
-    ]);
-    return routes;
-}
-// export default Router;
+  const routes = useRoutes([
+    {
+      path: "",
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "monitor",
+          element: <Monitor />,
+        },
+      ],
+    },
+  ]);
+  return routes;
+};
 
 export default function AppRouter() {
-    return (
-      // <AuthProvider>
-        <Router />
-      // </AuthProvider>
-    );
-  }
+  return (
+    <>
+      <Router />
+      <CustomChatbotComponent />
+    </>
+  );
+}

@@ -1,6 +1,6 @@
 .promptCustom {
-  min-height: 30%;
-  max-width: 30%;
+  min-height: 25%;
+  max-width: 25%;
   margin-top: 35%;
   border: 0.5px solid #ccc;
   min-width: 30%;
@@ -24,7 +24,6 @@
 .title {
   font-weight: bold;
   height: 10%;
-  /* padding-top: 10px; */
 }
 
 .subtext {
