@@ -174,18 +174,18 @@ const Home = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/home"
-      )
-      .then((response) => {
-        console.log("Backend server woke up:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error waking up backend server:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/home"
+  //     )
+  //     .then((response) => {
+  //       console.log("Backend server woke up:", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error waking up backend server:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -332,7 +332,7 @@ const Home = () => {
     setOpen(true);
   };
 
-  const drawerWidth = 343;
+  const drawerWidth = 280;
 
   const handleInputChange = (event) => {
     setSearchValue(event.target.value);
@@ -670,19 +670,29 @@ const Home = () => {
               <img src="./burger.svg" alt="burger" />
             </IconButton>
           )}
-          <p
+          <div
             style={{
               position: "absolute",
+              width: "60px",
+              aspectRatio: "1",
               top: "20px",
               right: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontSize: "18px",
               fontWeight: "700",
               lineHeight: "21.78px",
               textAlign: "justified",
+              backgroundColor: "#e5e5e5",
+              borderRadius: "50%",
             }}
           >
-            AMD
-          </p>
+            <p style={{
+              margin: "0",
+            }}>AMD</p>
+          </div>
+
           {isNewChat ? (
             <div
               style={{
