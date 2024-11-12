@@ -67,11 +67,92 @@ code {
   overflow-wrap: break-word;
 }
 
+.big-searchBar{
+  width: 70%;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 10px;
+}
+
+.big-searchBar>input{
+  width: 100%;
+}
+
+.chat-cont{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  height: 100%;
+  width: 70%;
+}
+
+.chat-searchbar {
+  width: 70%;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 10px;
+}
+
+.amd-logo{
+  position: absolute;
+  width: 60px;
+  aspect-ratio: 1;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.78px;
+  text-align: justified;
+  background-color: #e5e5e5;
+  border-radius: 50%;
+}
+
 @media (max-width: 768px) {
   .random-queries-container {
     width: 100%;
     display: flex;
     height: auto;
     flex-direction: column;
+  }
+
+  .big-searchBar{
+    width: 95%;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 10px;
+  }
+
+  .chat-cont{
+    width: 100%;
+  }
+
+  .chat-searchbar{
+    width: 100%;
+  }
+
+  .amd-logo{
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .big-searchBar>input{
+    max-width: 180px;
   }
 }

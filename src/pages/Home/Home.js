@@ -315,8 +315,7 @@ const Home = () => {
   };
 
   const handleRelatedQuestionClick = (question) => {
-    setSearchValue(question);
-    queryRef.current.focus();
+    getAnswer(question)
   };
 
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -463,6 +462,10 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    handleResize();
+  }, []);
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -474,6 +477,8 @@ const Home = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, answers]);
+
+  console.log(open, isLargeScreen);
 
   return (
     <>
@@ -651,7 +656,7 @@ const Home = () => {
             flexDirection: "row",
             padding: "10px",
             justifyContent: "space-around",
-            overflow: "auto",
+            overflow: "hidden",
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             backdropFilter: "blur(42px)",
             borderRadius: "26px",
@@ -671,26 +676,10 @@ const Home = () => {
             </IconButton>
           )}
           <div
-            style={{
-              position: "absolute",
-              width: "60px",
-              aspectRatio: "1",
-              top: "20px",
-              right: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "18px",
-              fontWeight: "700",
-              lineHeight: "21.78px",
-              textAlign: "justified",
-              backgroundColor: "#e5e5e5",
-              borderRadius: "50%",
-            }}
+            className="amd-logo"
           >
-            <p style={{
-              margin: "0",
-            }}>AMD</p>
+            
+              AMD
           </div>
 
           {isNewChat ? (
@@ -734,16 +723,7 @@ const Home = () => {
               </div>
               {/* Search bar */}
               <div
-                style={{
-                  width: "65%",
-                  borderRadius: 50,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  position: "relative",
-                  backgroundColor: "rgba(255, 255, 255, 0.4)",
-                  padding: "10px",
-                }}
+                className="big-searchBar"
               >
                 <Button
                   style={{
@@ -766,7 +746,6 @@ const Home = () => {
                 </Button>
                 <input
                   ref={queryRef}
-                  className="searchInput"
                   placeholder="Enter the prompt"
                   value={searchValue}
                   onChange={handleInputChange}
@@ -774,7 +753,6 @@ const Home = () => {
                     if (e.key === "Enter") getAnswer();
                   }}
                   style={{
-                    flex: 1,
                     border: "none",
                     outline: "none",
                     backgroundColor: "transparent",
@@ -799,13 +777,7 @@ const Home = () => {
           ) : (
             <>
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  padding: "10px",
-                  height: "100%",
-                  width: "70%",
-                }}
+                className="chat-cont"
               >
                 <div
                   ref={messagesEndRef}
@@ -985,16 +957,7 @@ const Home = () => {
               }}
             >
               <div
-                style={{
-                  width: "70%",
-                  borderRadius: 50,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  position: "relative",
-                  backgroundColor: "rgba(255, 255, 255, 1)",
-                  padding: "10px",
-                }}
+                className="chat-searchbar"
               >
                 <Button
                   style={{

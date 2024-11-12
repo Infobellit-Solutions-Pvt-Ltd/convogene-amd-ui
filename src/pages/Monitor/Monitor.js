@@ -14,7 +14,7 @@ import hi from "../../assets/Images/hi.svg";
 import ri from "../../assets/Images/ri.svg";
 import yi from "../../assets/Images/yi.svg";
 import ShimmerUI from "./ShimmerUI";
-import "./Monitor.module.css"
+import "./Monitor.module.css";
 // Register the necessary Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -114,34 +114,32 @@ const DataDashboard = () => {
 
       {/* Analytics Cards */}
       <Grid item xs={12} md={2.4}>
-        <Card 
-  sx={{
-    height: "100%",
-    backgroundColor: "#FFFFFFA8",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
-  }}        >
+        <Card
+          sx={{
+            height: "100%",
+            backgroundColor: "#FFFFFFA8",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
+          }}
+        >
           <CardContent>
             <div
               style={{
-                backgroundColor: "#DBE4F9", 
-                width: "4rem", 
-                height: "4rem", 
-                display: "flex", 
-                alignItems: "center", 
+                backgroundColor: "#DBE4F9",
+                width: "4rem",
+                height: "4rem",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden" ,
-                borderRadius:"12px",
-                marginBottom:"10px" 
+                overflow: "hidden",
+                borderRadius: "12px",
+                marginBottom: "10px",
               }}
             >
-
-          <img
-            alt="InfoBell Logo"
-            src={g1}
-            style={{ height: "2.5rem",}}
-          />
+              <img alt="InfoBell Logo" src={g1} style={{ height: "2.5rem" }} />
             </div>
-            <p variant="h6"  className="custom-typography">Average Tokens per Question</p>
+            <p variant="h6" className="custom-typography">
+              Average Tokens per Question
+            </p>
             <p variant="h4" className="custom-typography2">
               {averageTokensPerQuestion.toFixed(2)}
             </p>
@@ -149,185 +147,223 @@ const DataDashboard = () => {
         </Card>
       </Grid>
       <Grid item xs={12} md={2.4}>
-        <Card   sx={{
-    height: "100%",
-    backgroundColor: "#FFFFFFA8",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
-  }}  >
+        <Card
+          sx={{
+            height: "100%",
+            backgroundColor: "#FFFFFFA8",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
+          }}
+        >
           <CardContent>
-          <div
+            <div
               style={{
-                backgroundColor: "#DBE4F9", 
-                width: "4rem", 
-                height: "4rem", 
-                display: "flex", 
-                alignItems: "center", 
+                backgroundColor: "#DBE4F9",
+                width: "4rem",
+                height: "4rem",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden" ,
-                borderRadius:"12px",
-                marginBottom:"10px" 
+                overflow: "hidden",
+                borderRadius: "12px",
+                marginBottom: "10px",
               }}
             >
-
-          <img
-            alt="InfoBell Logo"
-            src={TotalUser}
-            style={{ height: "2.5rem",}}
-          />
+              <img
+                alt="InfoBell Logo"
+                src={TotalUser}
+                style={{ height: "2.5rem" }}
+              />
             </div>
-            <p variant="h6"  className="custom-typography">Average Cost per Question</p>
-            <p variant="h4"  className="custom-typography2">
+            <p variant="h6" className="custom-typography">
+              Average Cost per Question
+            </p>
+            <p variant="h4" className="custom-typography2">
               ${averageCostPerQuestion.toFixed(4)}
             </p>
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={12} md={2.4}>
-        <Card   sx={{
-    height: "100%",
-    backgroundColor: "#FFFFFFA8",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
-  }}  >
+        <Card
+          sx={{
+            height: "100%",
+            backgroundColor: "#FFFFFFA8",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
+          }}
+        >
           <CardContent>
-          <div
+            <div
               style={{
-                backgroundColor: "#DBE4F9", 
-                width: "4rem", 
-                height: "4rem", 
-                display: "flex", 
-                alignItems: "center", 
+                backgroundColor: "#DBE4F9",
+                width: "4rem",
+                height: "4rem",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden" ,
-                borderRadius:"12px",
-                marginBottom:"10px" 
+                overflow: "hidden",
+                borderRadius: "12px",
+                marginBottom: "10px",
               }}
             >
-
-          <img
-            alt="InfoBell Logo"
-            src={hi}
-            style={{ height: "2.5rem",}}
-          />
+              <img alt="InfoBell Logo" src={hi} style={{ height: "2.5rem" }} />
             </div>
-            <p variant="h6"className="custom-typography">Total Cost</p>
-            <p variant="h4"  className="custom-typography2">${totalCost}</p>
+            <p variant="h6" className="custom-typography">
+              Total Cost
+            </p>
+            <p variant="h4" className="custom-typography2">
+              ${totalCost}
+            </p>
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={12} md={2.4}>
-        <Card 
+        <Card
           sx={{
-    height: "100%",
-    backgroundColor: "#FFFFFFA8",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
-  }}  >
+            height: "100%",
+            backgroundColor: "#FFFFFFA8",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
+          }}
+        >
           <CardContent>
-          <div
+            <div
               style={{
-                backgroundColor: "#DBE4F9", 
-                width: "4rem", 
-                height: "4rem", 
-                display: "flex", 
-                alignItems: "center", 
+                backgroundColor: "#DBE4F9",
+                width: "4rem",
+                height: "4rem",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden" ,
-                borderRadius:"12px",
-                marginBottom:"10px" 
+                overflow: "hidden",
+                borderRadius: "12px",
+                marginBottom: "10px",
               }}
             >
-
-          <img
-            alt="InfoBell Logo"
-            src={ri}
-            style={{ height: "2.5rem",}}
-          />
+              <img alt="InfoBell Logo" src={ri} style={{ height: "2.5rem" }} />
             </div>
-            <p variant="h6"  className="custom-typography">Average TTFT per Question</p>
-            <p variant="h4"  className="custom-typography2">
+            <p variant="h6" className="custom-typography">
+              Average TTFT per Question
+            </p>
+            <p variant="h4" className="custom-typography2">
               {averageLatencyPerQuestion.toFixed(2)} ms
             </p>
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={12} md={2.4}>
-        <Card           sx={{
-    height: "100%",
-    backgroundColor: "#FFFFFFA8",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
-  }} >
+        <Card
+          sx={{
+            height: "100%",
+            backgroundColor: "#FFFFFFA8",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", // rgba(0, 0, 0, 0.05) is equivalent to #0000000D
+          }}
+        >
           <CardContent>
-          <div
+            <div
               style={{
-                backgroundColor: "#DBE4F9", 
-                width: "4rem", 
-                height: "4rem", 
-                display: "flex", 
-                alignItems: "center", 
+                backgroundColor: "#DBE4F9",
+                width: "4rem",
+                height: "4rem",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden" ,
-                borderRadius:"12px",
-                marginBottom:"10px" 
+                overflow: "hidden",
+                borderRadius: "12px",
+                marginBottom: "10px",
               }}
             >
-
-          <img
-            alt="InfoBell Logo"
-            src={yi}
-            style={{ height: "2.5rem",}}
-          />
+              <img alt="InfoBell Logo" src={yi} style={{ height: "2.5rem" }} />
             </div>
-            <p variant="h6"  className="custom-typography" >Total Questions</p>
-            <p variant="h4"  className="custom-typography2">{totalQuestions}</p>
+            <p variant="h6" className="custom-typography">
+              Total Questions
+            </p>
+            <p variant="h4" className="custom-typography2">
+              {totalQuestions}
+            </p>
           </CardContent>
         </Card>
       </Grid>
       <div className="custom-div">
-  <Grid container spacing={2} direction="row" justifyContent="center">
-    {/* Doughnut Charts */}
-    <Grid item xs={12} md={4} display="flex" flexDirection="column" alignItems="center">
-      <DoughnutChart
-        percentages={pieChartDataStatus.map((item) => item.value)}
-        labels={pieChartDataStatus.map((item) => item.name)}
-      />
-      <Typography
-        variant="h6"
-        className="custom-ChartText"
-        style={{ marginTop: "5px" ,marginBottom:"10px", fontWeight: "bold", textAlign: "center" }}
-      >
-        Status Distribution
-      </Typography>
-    </Grid>
-    
-    <Grid item xs={12} md={4} display="flex" flexDirection="column" alignItems="center">
-      <DoughnutChart
-        percentages={pieChartDataNamesCount.map((item) => item.value)}
-        labels={pieChartDataNamesCount.map((item) => item.name)}
-      />
-      <Typography
-      className="custom-ChartText"
-        variant="h6"
-        style={{ marginTop: "5px" ,marginBottom:"10px",fontWeight: "bold", textAlign: "center" }}
-      >
-        Names Count
-      </Typography>
-    </Grid>
-    
-    <Grid item xs={12} md={4} display="flex" flexDirection="column" alignItems="center">
-      <DoughnutChart
-        percentages={pieChartDataRunTypesCount.map((item) => item.value)}
-        labels={pieChartDataRunTypesCount.map((item) => item.name)}
-      />
-      <Typography
-        variant="h6"
-        className="custom-ChartText"
-        style={{ marginTop:"5px" ,marginBottom:"10px", fontWeight: "bold", textAlign: "center" }}
-      >
-        Run Types Count
-      </Typography>
-    </Grid>
-  </Grid>
-</div>
+        <Grid container spacing={2} direction="row" justifyContent="center">
+          {/* Doughnut Charts */}
+          <Grid
+            item
+            xs={12}
+            md={4}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <DoughnutChart
+              percentages={pieChartDataStatus.map((item) => item.value)}
+              labels={pieChartDataStatus.map((item) => item.name)}
+            />
+            <Typography
+              variant="h6"
+              className="custom-ChartText"
+              style={{
+                marginTop: "5px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Status Distribution
+            </Typography>
+          </Grid>
 
+          <Grid
+            item
+            xs={12}
+            md={4}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <DoughnutChart
+              percentages={pieChartDataNamesCount.map((item) => item.value)}
+              labels={pieChartDataNamesCount.map((item) => item.name)}
+            />
+            <Typography
+              className="custom-ChartText"
+              variant="h6"
+              style={{
+                marginTop: "5px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Names Count
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={4}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <DoughnutChart
+              percentages={pieChartDataRunTypesCount.map((item) => item.value)}
+              labels={pieChartDataRunTypesCount.map((item) => item.name)}
+            />
+            <Typography
+              variant="h6"
+              className="custom-ChartText"
+              style={{
+                marginTop: "5px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Run Types Count
+            </Typography>
+          </Grid>
+        </Grid>
+      </div>
 
       {/* Table */}
       <ColumnGroupingTable tableData={modified_tableData} />
