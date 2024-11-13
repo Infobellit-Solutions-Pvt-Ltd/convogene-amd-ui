@@ -119,6 +119,29 @@ code {
   border-radius: 50%;
 }
 
+.dash-popup{
+  width: 70%;
+  max-width: 700px;
+  padding: 20px 30px;
+}
+
+.dash-pop-heading{
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.dash-pop-text-bold{
+  font-size: 18px;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.dash-pop-text {
+  font-size: 18px;
+  font-weight: 400;
+}
+
 @media (max-width: 768px) {
   .random-queries-container {
     width: 100%;
@@ -149,10 +172,46 @@ code {
   .amd-logo{
     display: none;
   }
+
+  .dash-popup{
+    width: 80%;
+    padding: 10px 20px;
+  }
+
+  .dash-pop-text-bold {
+    font-size: 16px;
+  }
+
+  .dash-pop-text {
+    font-size: 16px;
+  }
+
+  .dash-pop-heading{
+    font-size: 20px;
+    font-weight: 600;
+  }
 }
 
 @media (max-width: 500px) {
   .big-searchBar>input{
     max-width: 180px;
+  }
+
+  .dash-popup{
+    width: 90%;
+    padding: 10px 20px;
+  }
+
+  .dash-pop-text-bold {
+    font-size: 16px;
+  }
+
+  .dash-pop-text {
+    font-size: 16px;
+  }
+
+  .dash-pop-heading{
+    font-size: 18px;
+    font-weight: 600;
   }
 }
