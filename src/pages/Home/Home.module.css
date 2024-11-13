@@ -249,7 +249,7 @@ input[type="radio"]:checked + .radio-label {
   opacity: 0.8;
 }
 .chatbot-container {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   right: 20px;
   z-index: 1000; /* Ensure it appears above other elements */

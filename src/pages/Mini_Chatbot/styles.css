@@ -1,55 +1,70 @@
 .chatbot-button {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
+  background-color: #5391F6;
+  color: #FFFFFF;
   border: none;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  height: 100%;
+  max-height: 100px;
+  aspect-ratio: 1;
   cursor: pointer;
   z-index: 1000;
-  background-color: #e5e5e5;
 }
 
 .chatbot-button img {
-  width: 50px;
+
+  width: 80%;
+  max-width: 50px;
   padding: 10px;
   object-fit: contain;
 }
 
 .chatbot-container {
-  position: fixed;
-  bottom: 20px; /* Adjust this value to move the chatbot up */
+  position: absolute;
+  bottom: 20px;
+  /* Adjust this value to move the chatbot up */
   right: 20px;
   width: 400px;
-  height: 450px; /* Adjusted height */
+  height: 450px;
+  /* Adjusted height */
   z-index: 1000;
-  border: 1px solid #dddddd; /* Add border */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  background-color: white; /* Optional: Add background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+  border: 1px solid #dddddd;
+  /* Add border */
+  border-radius: 10px;
+  /* Optional: Add rounded corners */
+  background-color: white;
+  /* Optional: Add background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Optional: Add shadow for better visibility */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure space between content and prompt bar */
-  overflow: hidden; /* Ensure content does not overflow */
+  justify-content: space-between;
+  /* Ensure space between content and prompt bar */
+  overflow: hidden;
+  /* Ensure content does not overflow */
 }
 
 .chatbot-container {
-  overflow: hidden; /* Hide overflow to remove scrollbar */
+  overflow: hidden;
+  /* Hide overflow to remove scrollbar */
 }
 
 .chatbot-content {
   flex: 1;
-  overflow-y: scroll; /* Allow vertical scrolling */
+  overflow-y: scroll;
+  /* Allow vertical scrolling */
   padding: 10px;
-  max-height: 400px; /* Adjust max height to fit the container */
-  -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer and Edge */
+  max-height: 400px;
+  /* Adjust max height to fit the container */
+  -ms-overflow-style: none;
+  /* Hide scrollbar in Internet Explorer and Edge */
   overflow-wrap: break-word;
-  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar in Firefox */
 }
 
 .chatbot-content::-webkit-scrollbar {
-  display: none; /* Hide scrollbar in Chrome, Safari, and Opera */
+  display: none;
+  /* Hide scrollbar in Chrome, Safari, and Opera */
 }
 
 .custom-message {
@@ -84,10 +99,13 @@
   color: #007bff;
   margin-right: 10px;
 }
+
 .searchInput {
   flex: 1;
-  padding: 10px 40px; /* Add padding to make space for icons */
-  padding-left: 50px; /* Add padding to the left to make space for the mic icon */
+  padding: 10px 40px;
+  /* Add padding to make space for icons */
+  padding-left: 50px;
+  /* Add padding to the left to make space for the mic icon */
   border: none;
   outline: none;
   border-radius: 50px;
@@ -148,9 +166,12 @@
 
 .fixed-icon {
   position: absolute;
-  top: 10px; /* Adjust as needed */
-  left: 10px; /* Adjust as needed */
-  z-index: 1001; /* Ensure it is above other elements */
+  top: 10px;
+  /* Adjust as needed */
+  left: 10px;
+  /* Adjust as needed */
+  z-index: 1001;
+  /* Ensure it is above other elements */
 }
 
 .chat-wrapper {
@@ -201,7 +222,8 @@
 
 .card-content {
   font-size: 8pt;
-  width: 100%; /* Adjust the font size as needed */
+  width: 100%;
+  /* Adjust the font size as needed */
 }
 
 .card:hover {
@@ -211,14 +233,67 @@
 .related-question-card {
   border: 1px solid #ccc;
   margin-bottom: 5px;
-  font-size: 8pt; /* Adjust font size */
-  width: 100%; /* Adjust width */
+  font-size: 8pt;
+  /* Adjust font size */
+  width: 100%;
+  /* Adjust width */
   /* height: 50px; /* Adjust height */
   min-height: 40px;
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  transition: background-color 0.3s;
+  /* Smooth transition for background color */
 }
 
 .related-question-card:hover {
-  cursor: pointer; /* Change cursor to hand pointer */
-  background-color: #f0f0f0; /* Change background color on hover */
+  cursor: pointer;
+  /* Change cursor to hand pointer */
+  background-color: #f0f0f0;
+  /* Change background color on hover */
+}
+
+.chatbot-footer-container {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 70px;
+  border-top: 1px solid #B7D3FD;
+}
+
+.chatbot-footer-sub-cont {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.chatbot-footer-sub-cont .mic-btn-ui {
+  z-index: 1;
+  aspect-ratio: 1;
+  border-radius: 50px;
+  height: 50px;
+}
+
+.mic-btn-ui.mic-red {
+  color: #FF0000;
+}
+
+.mic-btn-ui.mic-blue {
+  color: #5391F6;
+}
+
+@media (max-width: 768px) {
+  .chatbot-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  .chatbot-container {
+    width: 90%;
+  }
 }

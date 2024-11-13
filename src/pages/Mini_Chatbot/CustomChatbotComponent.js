@@ -17,6 +17,8 @@ import Card from "@mui/material/Card"; // Import MUI Card
 import CardContent from "@mui/material/CardContent"; // Import MUI CardContent
 import "./styles.css"; // Ensure you import the CSS file
 import micActiveLogo from "../../assets/Images/stop-button.png"; // Import micActive image
+import ForumIcon from "@mui/icons-material/Forum";
+
 const SPEECH_KEY = "f4a8f5be7801494fa47bc87d6d8ca31d";
 const SPEECH_REGION = "eastus";
 
@@ -299,15 +301,14 @@ const CustomChatbotComponent = () => {
   }, [inputValue]);
 
   return (
-    <div>
-      {!isChatOpen && (
-        <button className="chatbot-button" onClick={handleToggleChat}>
-          <img
-            src="./chat.png"
-            alt="Chat"
-          />
-        </button>
-      )}
+    <div
+      style={{
+        height: "100%",
+      }}
+    >
+      <button className="chatbot-button" onClick={handleToggleChat}>
+        <ForumIcon />
+      </button>
       {isChatOpen && (
         <div className="chatbot-container" ref={chatContainerRef}>
           <div
@@ -450,30 +451,12 @@ const CustomChatbotComponent = () => {
               </div>
             ))}
           </div>
-          <div
-            style={{
-              position: "relative",
-              bottom: 0,
-              width: "400px",
-              backgroundColor: "#ffff",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              height: "70px", // Adjust height as needed
-              borderTop: "1px solid #B7D3FD",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                position: "relative",
-                backgroundColor: "rgba(255, 255, 255, 1)",
-              }}
-            >
+          <div className="chatbot-footer-container">
+            <div className="chatbot-footer-sub-cont">
               <Button
+                className={
+                  isListening ? "mic-btn-ui mic-red" : "mic-btn-ui mic-blue"
+                }
                 style={{
                   color: isListening ? "red" : "#5391F6",
                   zIndex: 1,

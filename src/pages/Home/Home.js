@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import micActiveLogo from "../../assets/Images/stop-button.png";
 import remarkGfm from "remark-gfm";
 import Shimmer from "./Shimmer"; // Import the Shimmer component
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import {
   IconButton,
   Drawer,
@@ -24,6 +25,8 @@ import {
   FormControlLabel,
   Radio,
   Box,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 
 import Typography from "@mui/material/Typography";
@@ -87,7 +90,7 @@ const Home = () => {
 
   // const { profile } = location.state || {};
   const [logout, setLogout] = useState(false);
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
   const theme = useTheme();
   let [answerFlag1, setAnswerFlag1] = useState(true);
   let [answerFlag2, setAnswerFlag2] = useState(true);
@@ -127,8 +130,16 @@ const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isNewChat, setIsNewChat] = useState(true);
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  // const [isLargeScreen, setIsLargeScreen] = useState(true);
   const [selectedChatHistory, setSelectedChatHistory] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfileDropdown = Boolean(anchorEl);
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleProfileDropdownClose = () => {
+    setAnchorEl(null);
+  };
 
   const today = new Date();
 
@@ -315,7 +326,7 @@ const Home = () => {
   };
 
   const handleRelatedQuestionClick = (question) => {
-    getAnswer(question)
+    getAnswer(question);
   };
 
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -327,9 +338,9 @@ const Home = () => {
     justifyContent: "flex-end",
   }));
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
   const drawerWidth = 280;
 
@@ -445,26 +456,26 @@ const Home = () => {
     navigate("/monitor");
   };
 
-  function handleResize() {
-    if (window.innerWidth < 800) {
-      setOpen(false);
-      setIsLargeScreen(false);
-    } else {
-      setOpen(true);
-      setIsLargeScreen(true);
-    }
-  }
+  // function handleResize() {
+  //   if (window.innerWidth < 800) {
+  //     setOpen(false);
+  //     setIsLargeScreen(false);
+  //   } else {
+  //     setOpen(true);
+  //     setIsLargeScreen(true);
+  //   }
+  // }
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    handleResize();
-  }, []);
+  // useEffect(() => {
+  //   handleResize();
+  // }, []);
 
   const messagesEndRef = useRef(null);
 
@@ -478,29 +489,17 @@ const Home = () => {
     scrollToBottom();
   }, [messages, answers]);
 
-  console.log(open, isLargeScreen);
-
   return (
     <>
       <div
-        className="scroll-Container"
+        className="scroll-Container convogen-whole-container"
         style={{
-          display: "flex",
-          gap: "20px",
-          height: "100vh",
-          width: "100vw",
-          backgroundColor: "white",
-          padding: 10,
-          position: "relative",
           backgroundImage: "url('./bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          overflowY: "hidden",
         }}
       >
         {/* sidebar */}
 
-        {open && (
+        {/* {open && (
           <div
             style={{
               width: isLargeScreen ? "40%" : "100%",
@@ -646,52 +645,43 @@ const Home = () => {
               </Collapse>
             </List>
           </div>
-        )}
+        )} */}
 
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            padding: "10px",
-            justifyContent: "space-around",
-            overflow: "hidden",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            backdropFilter: "blur(42px)",
-            borderRadius: "26px",
-          }}
-          className="scroll-Container"
-        >
-          {!open && (
-            <IconButton
-              style={{
-                position: "absolute",
-                top: "20px",
-                left: "20px",
-              }}
-              onClick={handleDrawerOpen}
-            >
-              <img src="./burger.svg" alt="burger" />
-            </IconButton>
-          )}
-          <div
-            className="amd-logo"
-          >
-            
-              AMD
+        <div className="top-header">
+          <div className="convo-logo">
+            <img
+              src="./infobell-large.png"
+              alt="Create new chat"
+              className="convogen-logo"
+            />
           </div>
 
-          {isNewChat ? (
+          <div>
             <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
+              className="amd-logo"
+              role="button"
+              onClick={handleProfileClick}
+            >
+              AMD
+            </div>
+
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={openProfileDropdown}
+              onClose={handleProfileDropdownClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
               }}
             >
+              <MenuItem onClick={() => navigate("/monitor")}>Monitor</MenuItem>
+              <MenuItem onClick={() => navigate("/")}>History</MenuItem>
+            </Menu>
+          </div>
+        </div>
+        <div className="scroll-Container chat-whole-container">
+          {isNewChat ? (
+            <div className="chat-content-cont">
               <div>
                 <p
                   style={{
@@ -722,76 +712,55 @@ const Home = () => {
                 </p>
               </div>
               {/* Search bar */}
-              <div
-                className="big-searchBar"
-              >
-                <Button
-                  style={{
-                    color: isListening ? "red" : "#5391F6",
-                    zIndex: 1,
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                  }}
-                  onClick={isListening ? stopListening : startListening}
-                >
-                  {isListening ? (
-                    <img
-                      src={micActiveLogo}
-                      alt="Mic Active"
-                      style={{ height: "24px" }}
-                    />
-                  ) : (
-                    <KeyboardVoiceIcon className="micIcon" />
-                  )}
-                </Button>
-                <input
-                  ref={queryRef}
-                  placeholder="Enter the prompt"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") getAnswer();
-                  }}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: "transparent",
-                    padding: "10px 5px",
-                  }}
-                />
-                <Button
-                  style={{
-                    color: "#5391F6",
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                  }}
+              <div className="big-searchBar-cont">
+                <div className="big-searchBar">
+                  <Button
+                  className={isListening ? "big-search-mic-btn mic-red" : "big-search-mic-btn mic-blue"} onClick={isListening ? stopListening : startListening}
+                  >
+                    {isListening ? (
+                      <img
+                        src={micActiveLogo}
+                        alt="Mic Active"
+                        style={{ height: "24px" }}
+                      />
+                    ) : (
+                      <KeyboardVoiceIcon className="micIcon" />
+                    )}
+                  </Button>
+                  <input
+                    ref={queryRef}
+                    placeholder="Enter the prompt"
+                    value={searchValue}
+                    onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") getAnswer();
+                    }}
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      backgroundColor: "transparent",
+                      padding: "10px 5px",
+                    }}
+                  />
+                  <Button
+                  className="big-search-send-btn"
                   onClick={() => {
-                    getAnswer();
-                  }}
-                >
-                  <SendIcon className="sendIcon" />
-                </Button>
+                      getAnswer();
+                    }}
+                  >
+                    <SendIcon className="sendIcon" />
+                  </Button>
+                </div>
+                <CustomChatbotComponent />
               </div>
               <RandomQueries onQuerySelect={(query) => getAnswer(query)} />
             </div>
           ) : (
             <>
-              <div
-                className="chat-cont"
-              >
+              <div className="chat-cont">
                 <div
                   ref={messagesEndRef}
-                  className="scroll-Container hide-scrollbar"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    height: "100%",
-                    overflow: "auto",
-                    paddingBottom: "70px", // Add padding to avoid overlapping with the prompt bar
-                    overflowY: "scroll",
-                    overflowX: "hidden",
-                  }}
+                  className="scroll-Container hide-scrollbar chat-search-results-content"
                 >
                   {messages?.map((message, index) => (
                     <div
@@ -944,71 +913,64 @@ const Home = () => {
           )}
           {/* Search bar */}
           {!isNewChat && (
-            <div
-              style={{
-                position: "fixed",
-                bottom: 0,
-                width: "100%",
-                padding: "10px",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                height: "70px",
-              }}
-            >
-              <div
-                className="chat-searchbar"
-              >
-                <Button
-                  style={{
-                    color: isListening ? "red" : "#5391F6",
-                    zIndex: 1,
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                    height: "36px",
-                  }}
-                  onClick={isListening ? stopListening : startListening}
-                >
-                  {isListening ? (
-                    <img
-                      src={micActiveLogo}
-                      alt="Mic Active"
-                      style={{ height: "24px" }}
-                    />
-                  ) : (
-                    <KeyboardVoiceIcon className="micIcon" />
-                  )}
-                </Button>
-                <input
-                  ref={queryRef}
-                  className="searchInput"
-                  placeholder="Enter the prompt"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") getAnswer();
-                  }}
-                  style={{
-                    flex: 1,
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: "transparent",
-                    padding: "10px 5px",
-                  }}
-                />
-                <Button
-                  style={{
-                    color: "#5391F6",
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                    height: "36px",
-                  }}
+            <div className="chat-search-sub-cont">
+              <div className="chat-searchbar-cont">
+                <div className="chat-searchbar">
+                  <Button
+                    className={
+                      isListening
+                        ? "mic-search-btn mic-red"
+                        : "mic-search-btn mic-blue"
+                    }
+                    onClick={isListening ? stopListening : startListening}
+                  >
+                    {isListening ? (
+                      <img
+                        src={micActiveLogo}
+                        alt="Mic Active"
+                        style={{ height: "24px" }}
+                      />
+                    ) : (
+                      <KeyboardVoiceIcon className="micIcon" />
+                    )}
+                  </Button>
+                  <input
+                    ref={queryRef}
+                    className="searchInput search-input-ui"
+                    placeholder="Enter the prompt"
+                    value={searchValue}
+                    onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") getAnswer();
+                    }}
+                    style={{
+                      flex: 1,
+                      border: "none",
+                      outline: "none",
+                      backgroundColor: "transparent",
+                      padding: "10px 5px",
+                    }}
+                  />
+                  <Button
+                    className="search-send-btn"
+                    onClick={() => {
+                      getAnswer();
+                    }}
+                  >
+                    <SendIcon className="sendIcon" />
+                  </Button>
+                </div>
+                <div className="new-chat-whole-cont">
+                <button
+                  className="new-chat-btn"
                   onClick={() => {
-                    getAnswer();
+                    window.location.reload();
                   }}
                 >
-                  <SendIcon className="sendIcon" />
-                </Button>
+                  <MapsUgcIcon />
+                </button>
+                </div>
+                <CustomChatbotComponent />
               </div>
             </div>
           )}
