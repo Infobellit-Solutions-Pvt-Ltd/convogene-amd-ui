@@ -42,5 +42,5 @@ jobs:
 
           push: true
 
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/convogene-newui:v1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/convogene-amdui:v1
  

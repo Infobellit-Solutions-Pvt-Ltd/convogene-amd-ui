@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a169a2a4.css",
+    "main.js": "/static/js/main.0d996afd.js",
+    "static/js/845.921a663c.chunk.js": "/static/js/845.921a663c.chunk.js",
+    "static/media/infobellLogo.png": "/static/media/infobellLogo.555f0ae5714c231710e8.png",
+    "static/media/stop-button.png": "/static/media/stop-button.81b571b204f41f93242a.png",
+    "static/media/g1.svg": "/static/media/g1.5d903e9c3d9a5d2111098a665cf17350.svg",
+    "static/media/hi.svg": "/static/media/hi.01a096d90a36358aa1f4b7245cab82bc.svg",
+    "static/media/ri.svg": "/static/media/ri.ef653c0ff9d29c2008d29bbc7f73263f.svg",
+    "static/media/TotalUser.svg": "/static/media/TotalUser.16a70aeceffa5b48798f3c0fbfe093bd.svg",
+    "static/media/yi.svg": "/static/media/yi.bb66c8786a284e1388f3a00abe4a5f63.svg",
+    "index.html": "/index.html",
+    "main.a169a2a4.css.map": "/static/css/main.a169a2a4.css.map",
+    "main.0d996afd.js.map": "/static/js/main.0d996afd.js.map",
+    "845.921a663c.chunk.js.map": "/static/js/845.921a663c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a169a2a4.css",
+    "static/js/main.0d996afd.js"
+  ]
+}
