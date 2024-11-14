@@ -209,16 +209,89 @@
 }
 
 .related-question-card {
+  transition: background-color 0.3s;
+}
+.related-questions .related-question-card{
   border: 1px solid #ccc;
+  box-shadow: none;
   margin-bottom: 5px;
-  font-size: 8pt; /* Adjust font size */
-  width: 100%; /* Adjust width */
-  /* height: 50px; /* Adjust height */
+  width: 100%;
   min-height: 40px;
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  font-size: 12px;
+  padding: 10px 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+}
+.related-question-card:hover {
+  cursor: pointer;
 }
 
-.related-question-card:hover {
-  cursor: pointer; /* Change cursor to hand pointer */
-  background-color: #f0f0f0; /* Change background color on hover */
+.chatbot-footer-container {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 70px;
+  border-top: 1px solid #B7D3FD;
+}
+
+.chatbot-footer-sub-cont {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.chatbot-footer-sub-cont .mic-btn-ui {
+  z-index: 1;
+  aspect-ratio: 1;
+  border-radius: 50px;
+  height: 50px;
+}
+
+.mic-btn-ui.mic-red {
+  color: #FF0000;
+}
+
+.mic-btn-ui.mic-blue {
+  color: #5391F6;
+}
+
+.chatbot-footer-sub-cont .new-chat-send-btn-ui{
+  color: #5391F6;
+  aspect-ratio: 1;
+  border-radius: 50px;
+  height: 50px;
+}
+
+.chatbot-footer-sub-cont .new-chat-send-input-ui {
+  font-size: 0.8rem;
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+  .chatbot-container {
+    width: 90%;
+  }
+  .chatbot-button{
+    bottom: 100px;
+  }
+}
+
+@media (max-width: 500px) {
+  .chatbot-container {
+    width: 90%;
+  }
+  .chatbot-button{
+    bottom: 100px;
+  }
 }

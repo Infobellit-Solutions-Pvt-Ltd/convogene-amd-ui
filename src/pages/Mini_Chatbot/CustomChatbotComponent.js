@@ -450,37 +450,12 @@ const CustomChatbotComponent = () => {
               </div>
             ))}
           </div>
-          <div
-            style={{
-              position: "relative",
-              bottom: 0,
-              width: "400px",
-              backgroundColor: "#ffff",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              height: "70px", // Adjust height as needed
-              borderTop: "1px solid #B7D3FD",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                position: "relative",
-                backgroundColor: "rgba(255, 255, 255, 1)",
-              }}
-            >
+          <div className="chatbot-footer-container">
+            <div className="chatbot-footer-sub-cont">
               <Button
-                style={{
-                  color: isListening ? "red" : "#5391F6",
-                  zIndex: 1,
-                  aspectRatio: "1",
-                  borderRadius: "50px",
-                  height: "50px",
-                }}
+                className={
+                  isListening ? "mic-btn-ui mic-red" : "mic-btn-ui mic-blue"
+                }
                 onClick={isListening ? stopListening : startListening}
               >
                 {isListening ? (
@@ -494,30 +469,17 @@ const CustomChatbotComponent = () => {
                 )}
               </Button>
               <input
-                className="searchInput"
+                className="searchInput  new-chat-send-input-ui"
                 placeholder="Enter the prompt"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") handleSendMessage();
                 }}
-                style={{
-                  fontSize: "0.8rem",
-                  flex: 1,
-                  padding: "5px",
-                  border: "none",
-                  outline: "none",
-                  borderRadius: "50px",
-                }}
               />
 
               <Button
-                style={{
-                  color: "#5391F6",
-                  aspectRatio: "1",
-                  borderRadius: "50px",
-                  height: "50px",
-                }}
+              className="new-chat-send-btn-ui"
                 onClick={handleSendMessage}
               >
                 <SendIcon className="sendIcon" />

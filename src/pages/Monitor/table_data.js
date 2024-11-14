@@ -11,6 +11,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import ReactMarkdown from "react-markdown";
 import { Box, Button, Modal } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 const columns = [
   { id: "Question", label: "Question", minWidth: 50 },
@@ -236,36 +237,60 @@ export default function ColumnGroupingTable({ tableData }) {
           </Box>
 
           {PopDat ? (
-            <Box display="flex" flexDirection="column" gap={2}>
+            <Box display="flex" flexDirection="column" gap={2} className="common-modal-grid-ui">
               <Box display="flex">
-                <p className="dash-pop-text-bold">Name {": "}</p>
-                <p className="dash-pop-text">{PopDat.Name || "N/A"}</p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Name <span className="popup-colon">:</span> </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">{PopDat.Name || "N/A"}</p>
+                </Grid>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Question {": "}</p>
-                <p className="dash-pop-text">{PopDat.Question || "N/A"}</p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Question <span className="popup-colon">:</span>  </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">{PopDat.Question || "N/A"}</p>
+                </Grid>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Cost($) {": "}</p>
-                <p className="dash-pop-text">
-                  {PopDat?.["Total Cost($)"] || "N/A"}
-                </p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Total Cost($) <span className="popup-colon">:</span>  </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">
+                    {PopDat?.["Total Cost($)"] || "N/A"}
+                  </p>
+                </Grid>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Cost (₹) {": "}</p>
-                <p className="dash-pop-text">
-                  {PopDat?.["Total Cost(rs)"] || "N/A"}
-                </p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Total Cost (₹) <span className="popup-colon">:</span>  </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">
+                    {PopDat?.["Total Cost(rs)"] || "N/A"}
+                  </p>
+                </Grid>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Tokens {": "}</p>
-                <p className="dash-pop-text">
-                  {PopDat?.["Total Tokens"] || "N/A"}
-                </p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Total Tokens <span className="popup-colon">:</span> </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">
+                    {PopDat?.["Total Tokens"] || "N/A"}
+                  </p>
+                </Grid>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Time {": "}</p>
-                <p className="dash-pop-text">{PopDat?.["Time"] || "N/A"}</p>
+                <Grid className="modal-grid-item" item xs={6} md={4}>
+                  <p className="dash-pop-text-bold">Time <span className="popup-colon">:</span>  </p>
+                </Grid>
+                <Grid className="modal-grid-item" item xs={6} md={8}>
+                  <p className="dash-pop-text">{PopDat?.["Time"] || "N/A"}</p>
+                </Grid>
               </Box>
             </Box>
           ) : (

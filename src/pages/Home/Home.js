@@ -315,7 +315,7 @@ const Home = () => {
   };
 
   const handleRelatedQuestionClick = (question) => {
-    getAnswer(question)
+    getAnswer(question);
   };
 
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -483,54 +483,29 @@ const Home = () => {
   return (
     <>
       <div
-        className="scroll-Container"
+        className="scroll-Container convogen-whole-container"
         style={{
-          display: "flex",
-          gap: "20px",
-          height: "100vh",
-          width: "100vw",
-          backgroundColor: "white",
-          padding: 10,
-          position: "relative",
           backgroundImage: "url('./bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          overflowY: "hidden",
         }}
       >
         {/* sidebar */}
 
         {open && (
           <div
+            className={
+              isLargeScreen
+                ? "sidebar-ui-cont hide-scrollbar large-screen"
+                : "sidebar-ui-cont hide-scrollbar small-screen"
+            }
             style={{
-              width: isLargeScreen ? "40%" : "100%",
               maxWidth: drawerWidth,
-              height: "100%",
-              backgroundColor: "rgba(255, 255, 255, 0.5)",
-              backdropFilter: "blur(42px)",
-              borderRadius: "26px",
-              padding: "15px",
-              overflow: "auto",
-              position: isLargeScreen ? "relative" : "fixed",
-              top: 0,
-              left: 0,
-              zIndex: 1000,
             }}
-            className="hide-scrollbar"
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
+            <div className="sidebar-header">
               <img
                 src="./infobell-large.png"
                 alt="Create new chat"
-                style={{
-                  cursor: "pointer",
-                  height: "40px",
-                }}
+                className="infobell-logo-ui"
               />
               <IconButton
                 onClick={() => {
@@ -544,18 +519,7 @@ const Home = () => {
               </IconButton>
             </div>
             <button
-              className="btn"
-              style={{
-                backgroundColor: "#5391F6",
-                color: "white",
-                borderRadius: "100px",
-                padding: "10px 15px",
-                fontWeight: "600",
-                textAlign: "center",
-                fontSize: "14px",
-                marginTop: "20px",
-                marginBottom: "20px",
-              }}
+              className="btn new-chat-btn-ui"
               onClick={() => {
                 window.location.reload();
               }}
@@ -648,90 +612,38 @@ const Home = () => {
           </div>
         )}
 
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            padding: "10px",
-            justifyContent: "space-around",
-            overflow: "hidden",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            backdropFilter: "blur(42px)",
-            borderRadius: "26px",
-          }}
-          className="scroll-Container"
-        >
+        <div className="scroll-Container chat-whole-container">
           {!open && (
             <IconButton
-              style={{
-                position: "absolute",
-                top: "20px",
-                left: "20px",
-              }}
+            className="drawer-open-icon"
               onClick={handleDrawerOpen}
             >
               <img src="./burger.svg" alt="burger" />
             </IconButton>
           )}
-          <div
-            className="amd-logo"
-          >
-            
-              AMD
-          </div>
+          <div className="amd-logo">AMD</div>
 
           {isNewChat ? (
-            <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <div>
-                <p
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "400",
-                  }}
-                >
+            <div className="chat-content-cont">
+              <div className="chat-content-header">
+                <p className="chat-content-head-para">
                   Hey,{" "}
                   <i>
                     Welcome to{" "}
-                    <span
-                      style={{
-                        color: "#387FF2",
-                      }}
-                    >
+                    <span>
                       ConvoGene
                     </span>{" "}
                   </i>
                 </p>
-                <p
-                  style={{
-                    fontSize: "39px",
-                    fontWeight: "700",
-                    lineHeight: "47.2px",
-                  }}
-                >
+                <p className="chat-content-title-para">
                   How Can I Help?
                 </p>
               </div>
               {/* Search bar */}
-              <div
-                className="big-searchBar"
-              >
+              <div className="big-searchBar-cont">
+              <div className="big-searchBar">
                 <Button
-                  style={{
-                    color: isListening ? "red" : "#5391F6",
-                    zIndex: 1,
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                  }}
+                className={isListening ? "big-search-mic-btn mic-red" : "big-search-mic-btn mic-blue"} 
                   onClick={isListening ? stopListening : startListening}
                 >
                   {isListening ? (
@@ -752,47 +664,27 @@ const Home = () => {
                   onKeyPress={(e) => {
                     if (e.key === "Enter") getAnswer();
                   }}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: "transparent",
-                    padding: "10px 5px",
-                  }}
+                  className="bigsearhbar-input-ui"
                 />
                 <Button
-                  style={{
-                    color: "#5391F6",
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                  }}
-                  onClick={() => {
+                className="big-search-send-btn"
+                onClick={() => {
                     getAnswer();
                   }}
                 >
                   <SendIcon className="sendIcon" />
                 </Button>
               </div>
+              </div>
               <RandomQueries onQuerySelect={(query) => getAnswer(query)} />
             </div>
           ) : (
             <>
-              <div
-                className="chat-cont"
-              >
+              <div className="chat-cont">
                 <div
                   ref={messagesEndRef}
-                  className="scroll-Container hide-scrollbar"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    height: "100%",
-                    overflow: "auto",
-                    paddingBottom: "70px", // Add padding to avoid overlapping with the prompt bar
-                    overflowY: "scroll",
-                    overflowX: "hidden",
-                  }}
-                >
+                  className="scroll-Container hide-scrollbar chat-search-results-content"
+                  >
                   {messages?.map((message, index) => (
                     <div
                       key={index}
@@ -810,32 +702,19 @@ const Home = () => {
                       {message?.sender === "user" && (
                         <p
                           style={{
-                            padding: "10px 24px",
-                            borderRadius: "8px",
                             backgroundColor:
                               message?.sender === "user"
                                 ? "#C7E1FE8A"
                                 : "unset",
-                            width: "fit-content",
-                            borderRadius: "20px",
+                            
                           }}
-                          className="wrap-text"
+                          className="wrap-text chat-wrap-text"
                         >
                           {message.answer}
                         </p>
                       )}
                       {message?.sender === "bot" && (
-                        <div
-                          style={{
-                            display: "flex",
-                            textAlign: "left",
-                            justifyContent: "flex-start",
-                            justifyItems: "start",
-                            gap: "16px",
-                            padding: "30px 0",
-                          }}
-                          className="wrap-text"
-                        >
+                        <div className="wrap-text chat-wrap-text-bot">
                           {message?.answer && (
                             <div>
                               <img alt="" src="./star.svg" />
@@ -874,15 +753,7 @@ const Home = () => {
                       )}
                       {message?.sender === "bot_rq" && (
                         <>
-                          <div
-                            style={{
-                              display: "flex",
-                              paddingBottom: "50px",
-                              textAlign: "left",
-                              justifyContent: "flex-start",
-                              flexDirection: "column",
-                            }}
-                          >
+                          <div className="chat-wrap-text-bot-rq">
                             {message.answer &&
                               JSON.parse(message.answer).length > 0 && (
                                 <div className="related-questions">
@@ -897,17 +768,6 @@ const Home = () => {
                                           handleRelatedQuestionClick(question)
                                         }
                                         className="related-question-card"
-                                        style={{
-                                          boxShadow: "none",
-                                          marginBottom: "5px",
-                                          width: "100%",
-                                          minHeight: "40px",
-                                          fontSize: "12px",
-                                          padding: "10px 5px",
-                                          backgroundColor:
-                                            "rgba(255, 255, 255, 0.4)",
-                                          borderRadius: "20px",
-                                        }}
                                       >
                                         <CardContent
                                           style={{
@@ -944,29 +804,14 @@ const Home = () => {
           )}
           {/* Search bar */}
           {!isNewChat && (
-            <div
-              style={{
-                position: "fixed",
-                bottom: 0,
-                width: "100%",
-                padding: "10px",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                height: "70px",
-              }}
-            >
-              <div
-                className="chat-searchbar"
-              >
+            <div className="chat-search-sub-cont">
+              <div className="chat-searchbar">
                 <Button
-                  style={{
-                    color: isListening ? "red" : "#5391F6",
-                    zIndex: 1,
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                    height: "36px",
-                  }}
+                  className={
+                    isListening
+                      ? "mic-search-btn mic-red"
+                      : "mic-search-btn mic-blue"
+                  }
                   onClick={isListening ? stopListening : startListening}
                 >
                   {isListening ? (
@@ -981,28 +826,16 @@ const Home = () => {
                 </Button>
                 <input
                   ref={queryRef}
-                  className="searchInput"
+                  className="searchInput search-input-ui"
                   placeholder="Enter the prompt"
                   value={searchValue}
                   onChange={handleInputChange}
                   onKeyPress={(e) => {
                     if (e.key === "Enter") getAnswer();
                   }}
-                  style={{
-                    flex: 1,
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: "transparent",
-                    padding: "10px 5px",
-                  }}
                 />
                 <Button
-                  style={{
-                    color: "#5391F6",
-                    aspectRatio: "1",
-                    borderRadius: "50px",
-                    height: "36px",
-                  }}
+                  className="search-send-btn"
                   onClick={() => {
                     getAnswer();
                   }}

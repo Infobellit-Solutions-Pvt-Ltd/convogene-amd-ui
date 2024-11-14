@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RandomQueries.module.css"; // You'll need to create this CSS module
+import { Grid } from "@mui/material";
 
 const queries = [
   "Tell me about AMD Instinct™ MI300 Series Accelerators",
@@ -30,19 +31,19 @@ const RandomQueries = ({ onQuerySelect }) => {
 
   return (
     <>
-      <div
-        className="random-queries-container"
-      >
+      <div className="random-queries-container">
         {randomQueries.map((query, index) => (
-          <p
+          <Grid
             className="random-query-card"
-            key={index}
             onClick={() => {
               onQuerySelect(query);
             }}
+            item
+            xs={4}
+            md={4}
           >
             {query}
-          </p>
+          </Grid>
         ))}
       </div>
     </>
