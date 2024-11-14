@@ -282,9 +282,8 @@ const DataDashboard = () => {
           </CardContent>
         </Card>
       </Grid>
-      <div className="custom-div">
+      {/* <div className="custom-div">
         <Grid container spacing={2} direction="row" justifyContent="center">
-          {/* Doughnut Charts */}
           <Grid
             item
             xs={12}
@@ -363,7 +362,7 @@ const DataDashboard = () => {
             </Typography>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
 
       {/* Table */}
       <ColumnGroupingTable tableData={modified_tableData} />

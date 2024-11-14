@@ -21,7 +21,6 @@ const Router = () => {
           element: (
             <>
               <Monitor />
-              <CustomChatbotComponent />
             </>
           ),
         },
@@ -35,6 +34,7 @@ export default function AppRouter() {
   return (
     <>
       <Router />
+      <CustomChatbotComponent />
     </>
   );
 }

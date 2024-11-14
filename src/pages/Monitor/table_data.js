@@ -67,7 +67,7 @@ export default function ColumnGroupingTable({ tableData }) {
 
   return (
     <>
-      <Paper sx={{ width: "100%" }} className="custom-paper">
+      <Paper sx={{ width: "100%", marginTop: "20px" }} className="custom-paper">
         <TableContainer
           sx={{ maxHeight: 440, overflowY: "auto" }}
           className="custom-paper"
@@ -238,33 +238,33 @@ export default function ColumnGroupingTable({ tableData }) {
           {PopDat ? (
             <Box display="flex" flexDirection="column" gap={2}>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Name :{" "}</p>
+                <p className="dash-pop-text-bold">Name {": "}</p>
                 <p className="dash-pop-text">{PopDat.Name || "N/A"}</p>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Question :{" "}</p>
+                <p className="dash-pop-text-bold">Question {": "}</p>
                 <p className="dash-pop-text">{PopDat.Question || "N/A"}</p>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Cost($) :{" "}</p>
+                <p className="dash-pop-text-bold">Total Cost($) {": "}</p>
                 <p className="dash-pop-text">
                   {PopDat?.["Total Cost($)"] || "N/A"}
                 </p>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Cost (₹) :{" "}</p>
+                <p className="dash-pop-text-bold">Total Cost (₹) {": "}</p>
                 <p className="dash-pop-text">
                   {PopDat?.["Total Cost(rs)"] || "N/A"}
                 </p>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Total Tokens :{" "}</p>
+                <p className="dash-pop-text-bold">Total Tokens {": "}</p>
                 <p className="dash-pop-text">
                   {PopDat?.["Total Tokens"] || "N/A"}
                 </p>
               </Box>
               <Box display="flex">
-                <p className="dash-pop-text-bold">Time :{" "}</p>
+                <p className="dash-pop-text-bold">Time {": "}</p>
                 <p className="dash-pop-text">{PopDat?.["Time"] || "N/A"}</p>
               </Box>
             </Box>
