@@ -115,7 +115,7 @@ export default function ColumnGroupingTable({ tableData }) {
                           <TableCell
                             key={column.id}
                             align={column.align}
-                            sx={{ fontSize: "0.7rem" }}
+                            sx={{ fontSize: "1rem" }}
                           >
                             {typeof value === "object" ? (
                               <pre>{JSON.stringify(value, null, 2)}</pre>
