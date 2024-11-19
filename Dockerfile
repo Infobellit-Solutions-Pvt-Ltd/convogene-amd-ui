@@ -1,17 +1,23 @@
-# Use nginx to serve the static files
-FROM nginx:alpine
+FROM node:20-alpine as builder
  
-# Copy the custom nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
- 
-# Copy the build folder to the nginx default html location
-COPY ./build /usr/share/nginx/html
- 
-# Expose port 80
-EXPOSE 80
- 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
- 
- 
- 
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the working directoryCOPY package.json .
+COPY package.json .
+COPY package-lock.json .
+
+# Install dependencies
+RUN npm install --force
+
+# Copy the remaining application code to the working directory
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Command to run the React app
+CMD ["npm", "start"]
