@@ -18,6 +18,10 @@ import "./Monitor.module.css";
 // Register the necessary Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+//const BASE_URL = "http://127.0.0.1:8088";
+const BASE_URL = "https://convogene-ttl-backend.kindriver-0bf400d0.southindia.azurecontainerapps.io"
+const BACKEND_URL = (endpoint) => `${BASE_URL}/${endpoint}`;
+
 const DataDashboard = () => {
   const [data, setData] = useState(null);
   const [analytics, setAnalytics] = useState(null);
@@ -27,7 +31,7 @@ const DataDashboard = () => {
     // Fetch data for charts
     axios
       .get(
-        "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/data"
+        BACKEND_URL("data")
       )
       .then((response) => setData(response.data))
       .catch((error) => {
@@ -38,7 +42,7 @@ const DataDashboard = () => {
     // Fetch data for analytics
     axios
       .get(
-        "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/analytics"
+        BACKEND_URL("analytics")
       )
       .then((response) => setAnalytics(response.data))
       .catch((error) => console.error("Error fetching analytics:", error));

@@ -69,6 +69,10 @@ speechConfig.speechSynthesisVoiceName = "en-US-AvaMultilingualNeural";
 //Region : eastus
 //Endpoint : https://eastus.api.cognitive.microsoft.com/
 
+//const BASE_URL = "http://127.0.0.1:8088";
+const BASE_URL = "https://convogene-ttl-backend.kindriver-0bf400d0.southindia.azurecontainerapps.io"
+const BACKEND_URL = (endpoint) => `${BASE_URL}/${endpoint}`;
+
 const Home = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
@@ -137,7 +141,7 @@ const Home = () => {
   const handleCollapse5 = async () => {
     setLoadingChatHistory(true);
     const response = await axios.get(
-      "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/list_files"
+      BACKEND_URL("list_files")
     );
     console.log(response.data);
     setFiles(response.data);
@@ -162,7 +166,7 @@ const Home = () => {
     console.log("get_file_single");
     console.log("this is file name" + selectedFile);
     const response = await axios.post(
-      "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/one_file",
+      BACKEND_URL("one_file"),
       {
         file: selectedFile,
       }
@@ -177,7 +181,7 @@ const Home = () => {
   // useEffect(() => {
   //   axios
   //     .get(
-  //       "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/home"
+  //       BACKEND_URL("hom")"
   //     )
   //     .then((response) => {
   //       console.log("Backend server woke up:", response.data);
@@ -361,7 +365,7 @@ const Home = () => {
     if (query) {
       try {
         const response = await fetch(
-          "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/rag_qa_api_stream",
+          BACKEND_URL("rag_qa_api_stream"),
           {
             method: "POST",
             headers: {
@@ -390,7 +394,7 @@ const Home = () => {
         }
 
         const relatedQuestionsResponse = await fetch(
-          "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/related_questions",
+          BACKEND_URL("related_questions"),
           {
             method: "POST",
             headers: {
@@ -621,7 +625,7 @@ const Home = () => {
               <img src="./burger.svg" alt="burger" />
             </IconButton>
           )}
-          <div className="amd-logo">AMD</div>
+          <div className="amd-logo">TTL</div>
 
           {isNewChat ? (
             <div className="chat-content-cont">

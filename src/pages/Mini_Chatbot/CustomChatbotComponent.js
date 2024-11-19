@@ -20,6 +20,10 @@ import micActiveLogo from "../../assets/Images/stop-button.png"; // Import micAc
 const SPEECH_KEY = "f4a8f5be7801494fa47bc87d6d8ca31d";
 const SPEECH_REGION = "eastus";
 
+//const BASE_URL = "http://127.0.0.1:8088";
+const BASE_URL = "https://convogene-ttl-backend.kindriver-0bf400d0.southindia.azurecontainerapps.io"
+const BACKEND_URL = (endpoint) => `${BASE_URL}/${endpoint}`;
+
 const CustomChatbotComponent = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -66,7 +70,7 @@ const CustomChatbotComponent = () => {
     if (query) {
       try {
         const response = await fetch(
-          "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/rag_qa_api_stream",
+          BACKEND_URL("rag_qa_api_stream"),
           {
             method: "POST",
             headers: {
@@ -93,7 +97,7 @@ const CustomChatbotComponent = () => {
         }
         setInputValue("");
         const relatedQuestionsResponse = await fetch(
-          "https://convogene-rag-backend.bluedesert-cfbaeeb3.eastus.azurecontainerapps.io/related_questions",
+          BACKEND_URL("related_questions"),
           {
             method: "POST",
             headers: {
